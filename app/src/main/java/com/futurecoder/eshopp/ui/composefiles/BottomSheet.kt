@@ -15,17 +15,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomButton
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomOutlinedTextBox
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
+import com.futurecoder.eshopp.viewmodels.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DisplayBottomSheet(
     modifier: Modifier = Modifier,
+    loginViewModel: LoginViewModel = hiltViewModel(),
     onDismissClicked: (Boolean) -> Unit,
-    onLoginButtonClicked: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
@@ -33,7 +35,9 @@ fun DisplayBottomSheet(
         onDismissClicked(false)
     }, sheetState = sheetState, dragHandle = { BottomSheetDefaults.DragHandle() }) {
         BottomLayout(
-            onLoginButtonClicked = onLoginButtonClicked
+            onLoginButtonClicked = {
+                loginViewModel.onLoginClick()
+            }
         )
     }
 }
