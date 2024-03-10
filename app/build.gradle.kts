@@ -77,6 +77,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
 }
 kapt {
     correctErrorTypes = true

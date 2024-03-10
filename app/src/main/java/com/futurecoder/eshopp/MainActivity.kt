@@ -17,10 +17,12 @@ import androidx.navigation.compose.rememberNavController
 import com.futurecoder.eshopp.ui.composefiles.DashboardScreen
 import com.futurecoder.eshopp.ui.composefiles.DisplayBottomSheet
 import com.futurecoder.eshopp.ui.composefiles.SearchScreen
+import com.futurecoder.eshopp.ui.composefiles.SplashScreen
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
 import com.futurecoder.eshopp.ui.viewmodels.DashboardViewModel
 import com.futurecoder.eshopp.utils.DashboardDestination
 import com.futurecoder.eshopp.utils.SearchDestination
+import com.futurecoder.eshopp.utils.SplashDestination
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,8 +53,17 @@ class MainActivity : ComponentActivity() {
                     }
                     NavHost(
                         navController = navController,
-                        startDestination = DashboardDestination.route
+                        startDestination = SplashDestination.route
                     ) {
+                        composable(SplashDestination.route) {
+                            SplashScreen(splashIcon = R.drawable.splash_logo) {
+                                navController.navigate(DashboardDestination.route) {
+                                    popUpTo(SplashDestination.route) {
+                                        inclusive = true
+                                    }
+                                }
+                            }
+                        }
                         composable(DashboardDestination.route) {
                             DashboardScreen(onProfileIconClicked = {
                                 showBottomSheet.value = it
