@@ -2,6 +2,7 @@ package com.futurecoder.eshopp.services.impls
 
 import com.futurecoder.eshopp.services.FirebaseAccountService
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class FirebaseAccountServiceImpl @Inject constructor(
@@ -12,11 +13,11 @@ class FirebaseAccountServiceImpl @Inject constructor(
     override val hasUser: Boolean
         get() = auth.currentUser != null
 
-    override fun signIn() {
-        TODO("Not yet implemented")
+    override suspend fun signIn(email: String, password: String) {
+        auth.signInWithEmailAndPassword(email,password).await()
     }
 
-    override fun signOut() {
-        TODO("Not yet implemented")
+    override suspend fun signOut() {
+        auth.signOut()
     }
 }

@@ -3,6 +3,6 @@ package com.futurecoder.eshopp.services
 interface FirebaseAccountService {
     val currentUserId: String
     val hasUser: Boolean
-    fun signIn()
-    fun signOut()
+    suspend fun signIn(email: String, password: String)
+    suspend fun signOut()
 }
