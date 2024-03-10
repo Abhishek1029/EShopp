@@ -19,7 +19,7 @@ import com.futurecoder.eshopp.ui.composefiles.DisplayBottomSheet
 import com.futurecoder.eshopp.ui.composefiles.SearchScreen
 import com.futurecoder.eshopp.ui.composefiles.SplashScreen
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
-import com.futurecoder.eshopp.ui.viewmodels.DashboardViewModel
+import com.futurecoder.eshopp.viewmodels.DashboardViewModel
 import com.futurecoder.eshopp.utils.DashboardDestination
 import com.futurecoder.eshopp.utils.SearchDestination
 import com.futurecoder.eshopp.utils.SplashDestination

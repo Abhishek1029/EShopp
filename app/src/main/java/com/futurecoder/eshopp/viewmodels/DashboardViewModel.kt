@@ -1,4 +1,4 @@
-package com.futurecoder.eshopp.ui.viewmodels
+package com.futurecoder.eshopp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

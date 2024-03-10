@@ -53,7 +53,6 @@ android {
 }
 
 dependencies {
-    implementation("com.google.firebase:firebase-auth:22.3.1")
     val navVersion = "2.7.7"
     val hiltVersion = "2.51"
     implementation("androidx.core:core-ktx:1.12.0")
@@ -77,7 +76,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:$navVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
 kapt {
     correctErrorTypes = true
