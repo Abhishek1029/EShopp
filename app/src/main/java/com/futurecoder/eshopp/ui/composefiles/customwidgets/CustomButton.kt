@@ -12,10 +12,10 @@ fun CustomButton(
     modifier: Modifier = Modifier,
     @StringRes buttonText: Int,
     btnTextFontSize: TextUnit = 16.sp,
-    onLoginButtonClick: () -> Unit
+    onButtonClick: () -> Unit
 ) {
     Button(onClick = {
-        onLoginButtonClick()
+        onButtonClick()
     }, modifier = modifier) {
         CustomText(text = buttonText, fontSize = btnTextFontSize)
     }

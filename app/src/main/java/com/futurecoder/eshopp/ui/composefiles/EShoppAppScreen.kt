@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.utils.DashboardDestination
 import com.futurecoder.eshopp.utils.SearchDestination
+import com.futurecoder.eshopp.utils.SignupDestination
 import com.futurecoder.eshopp.utils.SplashDestination
 import com.futurecoder.eshopp.viewmodels.DashboardViewModel
 
@@ -30,7 +31,10 @@ fun EShoppAppScreen(
                 onDismissClicked = {
                     showBottomSheet.value = false
                 }
-            )
+            ) {
+                showBottomSheet.value = false
+                navController.navigate(SignupDestination.route)
+            }
         }
         NavHost(
             navController = navController,
@@ -54,6 +58,9 @@ fun EShoppAppScreen(
             }
             composable(SearchDestination.route) {
                 SearchScreen()
+            }
+            composable(SignupDestination.route) {
+                SignUpComposable()
             }
         }
     }

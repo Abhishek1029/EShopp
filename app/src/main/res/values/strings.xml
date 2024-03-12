@@ -11,4 +11,10 @@
     <string name="delivery_in">Delivery In</string>
     <string name="search">Search</string>
     <string name="splash_icon">Splash Icon</string>
+    <string name="do_not_have_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="name">Name</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="create_account">Create Account</string>
+    <string name="re_enter_password">Re-enter Password</string>
 </resources>
