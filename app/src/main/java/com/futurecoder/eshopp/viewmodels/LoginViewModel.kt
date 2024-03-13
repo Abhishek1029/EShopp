@@ -14,7 +14,7 @@ private const val TAG = "LoginViewModel"
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val firebaseAccountService: FirebaseAccountService
-) : ViewModel() {
+) : EShoppViewModel() {
 
     private val loginState = mutableStateOf(LoginState())
     private val email: String
@@ -31,6 +31,10 @@ class LoginViewModel @Inject constructor(
         if (password.isBlank()) {
             Log.e(TAG, "Password should not be empty")
             return
+        }
+
+        launchCatching {
+            firebaseAccountService.signIn(email,password)
         }
     }
 }

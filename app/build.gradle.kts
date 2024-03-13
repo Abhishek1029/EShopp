@@ -79,6 +79,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("androidx.core:core-splashscreen:1.1.0-alpha02")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("com.google.firebase:firebase-firestore:24.10.3")
 }
 kapt {
     correctErrorTypes = true
