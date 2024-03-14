@@ -24,12 +24,17 @@ fun SearchScreen() {
         modifier = Modifier.fillMaxSize()
     ) {
         CustomOutlinedTextFieldWithLeadingIcon(
-            modifier = Modifier.fillMaxWidth().padding(8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
             placeholderText = R.string.search,
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White
-            )
+            ),
+            onTextFieldValueChange = {
+
+            }
         ) {
             Icon(
                 imageVector = Icons.Default.Search,

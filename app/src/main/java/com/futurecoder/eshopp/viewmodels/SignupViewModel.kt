@@ -26,6 +26,14 @@ class SignupViewModel @Inject constructor(
     val password: String
         get() = signupState.value.password
 
+    fun onEmailChange(emailAddress: String) {
+        signupState.value.email = emailAddress
+    }
+
+    fun onPasswordChange(password: String) {
+        signupState.value.password = password
+    }
+
     fun onSignUpClick() {
         Log.d(TAG, "onSignUpClick called")
         if (!email.isValidEmail()) {

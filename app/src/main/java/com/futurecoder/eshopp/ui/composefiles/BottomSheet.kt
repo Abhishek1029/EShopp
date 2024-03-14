@@ -14,10 +14,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -29,9 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.futurecoder.eshopp.R
-import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomAnnotatedText
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomButton
-import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomOutlinedTextBox
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomOutlinedTextFieldWithLeadingIcon
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.viewmodels.LoginViewModel
@@ -45,14 +41,19 @@ fun DisplayBottomSheet(
     onSignUpTextClicked: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState()
-    val coroutineScope = rememberCoroutineScope()
     ModalBottomSheet(onDismissRequest = {
         onDismissClicked(false)
     }, sheetState = sheetState, dragHandle = { BottomSheetDefaults.DragHandle() }) {
         BottomLayout(
+            onEmailChange = {
+                loginViewModel.onEmailChange(it)
+            }, onPasswordChange = {
+                loginViewModel.onPasswordChange(it)
+            },
             onSignUpTextClicked = onSignUpTextClicked,
             onLoginButtonClicked = {
                 loginViewModel.onLoginClick()
+                onDismissClicked(false)
             }
         )
     }
@@ -60,6 +61,8 @@ fun DisplayBottomSheet(
 
 @Composable
 fun BottomLayout(
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
     onSignUpTextClicked: () -> Unit,
     onLoginButtonClicked: () -> Unit
 ) {
@@ -104,7 +107,8 @@ fun BottomLayout(
                     imageVector = Icons.Default.Email,
                     contentDescription = stringResource(id = R.string.email_address)
                 )
-            })
+            }, onTextFieldValueChange = onEmailChange
+        )
         CustomOutlinedTextFieldWithLeadingIcon(placeholderText = R.string.password,
             modifier = Modifier
                 .padding(top = 10.dp)
@@ -119,7 +123,8 @@ fun BottomLayout(
                     imageVector = Icons.Default.Lock,
                     contentDescription = stringResource(id = R.string.password)
                 )
-            })
+            }, onTextFieldValueChange = onPasswordChange
+        )
         CustomButton(
             modifier = Modifier
                 .fillMaxWidth(.5f)

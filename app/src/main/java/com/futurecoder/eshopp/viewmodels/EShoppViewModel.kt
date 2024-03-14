@@ -20,8 +20,8 @@ open class EShoppViewModel @Inject constructor() : ViewModel() {
                 Log.d(TAG, "kotlin.runCatching called")
                 calledFunction()
             }.onSuccess {
-                it.addOnSuccessListener {
-                    Log.d(TAG, "On Success Listener")
+                it.addOnSuccessListener {userData->
+                    Log.d(TAG, "On Success Listener ${userData.user?.email}")
                 }
                 it.addOnFailureListener { failure ->
                     Log.d(

@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,6 +41,7 @@ fun DashboardScreen(
             imageVector = Icons.Outlined.AccountCircle,
             contentDescription = stringResource(id = R.string.profile),
             modifier = Modifier
+                .size(40.dp)
                 .clickable {
                     onProfileIconClicked(true)
                 }
@@ -50,8 +53,9 @@ fun DashboardScreen(
                 }
         )
 
-        CustomText(text = R.string.delivery_in,
-            fontSize = 18.sp,
+        CustomText(text = R.string.welcome,
+            fontSize = 20.sp,
+            textStyle = FontWeight.Bold,
             modifier = Modifier.constrainAs(
                 locationText
             ) {
@@ -66,7 +70,7 @@ fun DashboardScreen(
                     onSearchBarClick()
                 }
                 .constrainAs(searchBox) {
-                    top.linkTo(locationText.bottom)
+                    top.linkTo(profileImage.bottom)
                     start.linkTo(startGuideline)
                     end.linkTo(endGuideline)
                     width = Dimension.fillToConstraints
@@ -80,7 +84,9 @@ fun DashboardScreen(
                 disabledPlaceholderColor = Color.Black,
                 disabledLeadingIconColor = Color.Black,
                 disabledContainerColor = Color.White
-            )
+            ), onTextFieldValueChange = {
+
+            }
         ) {
             Icon(
                 imageVector = Icons.Default.Search,

@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.futurecoder.eshopp.ui.composefiles.returnAnnotatedString
@@ -17,13 +18,15 @@ fun CustomText(
     modifier: Modifier = Modifier,
     @StringRes text: Int,
     fontSize: TextUnit = 12.sp,
-    textStyle: FontWeight = FontWeight.Normal
+    textStyle: FontWeight = FontWeight.Normal,
+    textAlignment: TextAlign = TextAlign.Start
 ) {
     Text(
         text = stringResource(id = text),
         modifier = modifier,
         fontSize = fontSize,
-        fontWeight = textStyle
+        fontWeight = textStyle,
+        textAlign = textAlignment
     )
 }
 

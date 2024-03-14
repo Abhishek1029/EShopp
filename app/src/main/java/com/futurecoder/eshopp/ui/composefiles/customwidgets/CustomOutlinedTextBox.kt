@@ -38,6 +38,7 @@ fun CustomOutlinedTextFieldWithLeadingIcon(
     enabled: Boolean = true,
     readOnly : Boolean = false,
     colors: TextFieldColors = TextFieldDefaults.colors(),
+    onTextFieldValueChange:(String)->Unit,
     leadingIcon: @Composable (() -> Unit)?
 ) {
     var queryString by remember {
@@ -46,6 +47,7 @@ fun CustomOutlinedTextFieldWithLeadingIcon(
     OutlinedTextField(
         value = queryString, onValueChange = {
             queryString = it
+            onTextFieldValueChange(queryString)
         },
         modifier = modifier, placeholder = {
             CustomText(text = placeholderText, fontSize = 15.sp)

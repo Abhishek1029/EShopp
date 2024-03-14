@@ -23,6 +23,13 @@ class LoginViewModel @Inject constructor(
     private val password: String
         get() = loginState.value.password
 
+    fun onEmailChange(emailAddress: String) {
+        loginState.value.email = emailAddress
+    }
+
+    fun onPasswordChange(password: String) {
+        loginState.value.password = password
+    }
     fun onLoginClick() {
         if (!email.isValidEmail()) {
             Log.e(TAG, "Invalid Email Address")
