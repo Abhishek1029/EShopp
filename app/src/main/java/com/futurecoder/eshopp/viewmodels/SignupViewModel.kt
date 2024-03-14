@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.futurecoder.eshopp.data.SignupState
 import com.futurecoder.eshopp.services.FirebaseAccountService
+import com.futurecoder.eshopp.utils.CLConstants.FIRE_STORE_USERS_COLLECTION
 import com.futurecoder.eshopp.utils.isValidEmail
 import com.futurecoder.eshopp.utils.isValidPassword
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -44,8 +45,23 @@ class SignupViewModel @Inject constructor(
             Log.d(TAG, "Not a valid Password")
             return
         }
-        launchCatching {
-            firebaseAccountService.createAccount(email, password)
+        viewModelScope.launch {
+            kotlin.runCatching {
+                Log.d(TAG, "kotlin.runCatching called")
+                firebaseAccountService.createAccount(email, password)
+            }.onSuccess {
+                it.addOnSuccessListener { userData ->
+                    Log.d(TAG, "On Success Listener ${userData.user?.email}")
+                }
+                it.addOnFailureListener { failure ->
+                    Log.d(
+                        TAG,
+                        "Account Creation Failed with Exception:- ${failure.localizedMessage}"
+                    )
+                }
+            }.onFailure {
+                Log.e(TAG, "Account Creation Failed with Exception:- ${it.localizedMessage}")
+            }
         }
     }
 }

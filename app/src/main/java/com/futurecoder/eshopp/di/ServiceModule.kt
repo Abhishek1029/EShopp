@@ -3,6 +3,7 @@ package com.futurecoder.eshopp.di
 import com.futurecoder.eshopp.services.FirebaseAccountService
 import com.futurecoder.eshopp.services.impls.FirebaseAccountServiceImpl
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +13,9 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
     @Provides
-    fun providesFirebaseAccountService(auth: FirebaseAuth): FirebaseAccountService =
-        FirebaseAccountServiceImpl(auth)
+    fun providesFirebaseAccountService(
+        auth: FirebaseAuth,
+        fireStore: FirebaseFirestore
+    ): FirebaseAccountService =
+        FirebaseAccountServiceImpl(auth, fireStore)
 }

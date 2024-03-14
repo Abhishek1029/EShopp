@@ -14,7 +14,7 @@ private const val TAG = "EShoppViewModel"
 @HiltViewModel
 open class EShoppViewModel @Inject constructor() : ViewModel() {
 
-    fun launchCatching(calledFunction: suspend () -> Task<AuthResult>) {
+    fun launchCatching(calledFunction: suspend () -> Task<AuthResult>){
         viewModelScope.launch {
             kotlin.runCatching {
                 Log.d(TAG, "kotlin.runCatching called")
