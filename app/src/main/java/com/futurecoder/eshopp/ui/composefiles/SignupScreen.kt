@@ -37,7 +37,7 @@ fun SignUpComposable(
 ) {
     SignupScreen(
         onNameChange = {
-
+            viewModel.onNameChange(it)
         },
         onEmailChange = {
             viewModel.onEmailChange(it)

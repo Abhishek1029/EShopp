@@ -1,5 +1,6 @@
 package com.futurecoder.eshopp.services.impls
 
+import android.util.Log
 import com.futurecoder.eshopp.data.SignupState
 import com.futurecoder.eshopp.services.FirebaseAccountService
 import com.google.android.gms.tasks.Task
@@ -36,11 +37,11 @@ class FirebaseAccountServiceImpl @Inject constructor(
         )
     }
 
-    override suspend fun checkIfEmailExist(
+    override suspend fun queryEmail(
         collectionName: String,
         email: String
     ): Query {
-        return fireStore.collection(collectionName).whereEqualTo("email",email)
+       return fireStore.collection(collectionName).whereEqualTo("email", email)
     }
 
     override suspend fun signOut() {

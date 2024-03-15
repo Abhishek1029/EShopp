@@ -14,6 +14,6 @@ interface FirebaseAccountService {
 
     suspend fun insertUserInFireStore(collectionName: String, signupData:SignupState): Task<Void>
 
-    suspend fun checkIfEmailExist(collectionName: String,email: String): Query
+    suspend fun queryEmail(collectionName: String,email: String): Query
     suspend fun signOut()
 }
