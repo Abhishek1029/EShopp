@@ -18,4 +18,8 @@
     <string name="create_account">Create Account</string>
     <string name="re_enter_password">Re-enter Password</string>
     <string name="logout">Logout</string>
+    <string name="are_you_sure_to_logout">Are you sure to logout of this app?</string>
+    <string name="app_version">App Version:</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
