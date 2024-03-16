@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -84,7 +86,7 @@ fun ProfileScreen(
             .fillMaxSize()
             .background(Color.White)
     ) {
-        val (profileIcon, nameText, emailText, logoutCard, appVersionText) = createRefs()
+        val (profileIcon, nameText, emailText, addressCard, logoutCard, appVersionText) = createRefs()
         Image(
             painter = painterResource(id = R.drawable.profile_icon),
             contentDescription = "Profile Icon",
@@ -113,6 +115,44 @@ fun ProfileScreen(
                 top.linkTo(nameText.bottom, 5.dp)
             }
         )
+
+        ElevatedCard(
+            onClick = {
+            }, modifier = Modifier
+                .height(56.dp)
+                .padding(3.dp)
+                .constrainAs(addressCard) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(profileIcon.bottom, 20.dp)
+                    width = Dimension.fillToConstraints
+                },
+            colors = CardDefaults.elevatedCardColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
+            ), shape = RectangleShape, elevation = CardDefaults.elevatedCardElevation(
+                defaultElevation = 8.dp,
+                pressedElevation = 10.dp
+            )
+        ) {
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Spacer(modifier = Modifier.size(10.dp))
+                Icon(
+                    imageVector = Icons.Default.LocationOn,
+                    contentDescription = "Address",
+                    tint = Color.Black
+                )
+                Spacer(modifier = Modifier.size(15.dp))
+                CustomText(
+                    text = AppString.address,
+                    fontSize = 18.sp,
+                    textStyle = FontWeight.Bold
+                )
+            }
+        }
 
         ElevatedCard(
             onClick = {

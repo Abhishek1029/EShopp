@@ -6,18 +6,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.futurecoder.eshopp.R
+import com.futurecoder.eshopp.utils.AddAddressDestination
 import com.futurecoder.eshopp.utils.DashboardDestination
 import com.futurecoder.eshopp.utils.ProfileDestination
 import com.futurecoder.eshopp.utils.SearchDestination
 import com.futurecoder.eshopp.utils.SignupDestination
 import com.futurecoder.eshopp.utils.SplashDestination
-import com.futurecoder.eshopp.viewmodels.DashboardViewModel
 
 @ExperimentalMaterial3Api
 @Composable
@@ -77,6 +75,9 @@ fun EShoppAppScreen(
                         }
                     }
                 }
+            }
+            composable(AddAddressDestination.route) {
+                AddAddressScreen()
             }
         }
     }
