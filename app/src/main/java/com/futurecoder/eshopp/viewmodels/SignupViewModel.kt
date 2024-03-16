@@ -8,11 +8,11 @@ import com.futurecoder.eshopp.services.FirebaseAccountService
 import com.futurecoder.eshopp.utils.CLConstants.FIRE_STORE_USERS_COLLECTION
 import com.futurecoder.eshopp.utils.isValidEmail
 import com.futurecoder.eshopp.utils.isValidPassword
+import com.google.firebase.auth.UserProfileChangeRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
 
 private const val TAG = "SignupViewModel"
 
@@ -52,7 +52,8 @@ class SignupViewModel @Inject constructor(
             return
         }
         viewModelScope.launch {
-            firebaseAccountService.queryEmail(FIRE_STORE_USERS_COLLECTION, email).get()
+            createAccount()
+            /*firebaseAccountService.queryEmail(FIRE_STORE_USERS_COLLECTION, email).get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         if (task.result.isEmpty) {
@@ -61,7 +62,7 @@ class SignupViewModel @Inject constructor(
                             Log.e(TAG, "Email Already Exist")
                         }
                     }
-                }
+                }*/
         }
     }
 
@@ -72,7 +73,14 @@ class SignupViewModel @Inject constructor(
                 firebaseAccountService.createAccount(email, password)
             }.onSuccess {
                 it.addOnSuccessListener {
-                    insertDataIntoFireStore()
+                    val profileUpdates = UserProfileChangeRequest.Builder()
+                        .setDisplayName(name).build()
+                    firebaseAccountService.currentUser?.updateProfile(profileUpdates)?.addOnSuccessListener {
+                        Log.d(TAG,"Profile Update Successfull")
+                        insertDataIntoFireStore()
+                    }?.addOnFailureListener {
+                        Log.d(TAG,"Profile Update failed with Exception ${it.localizedMessage}")
+                    }
                 }
                 it.addOnFailureListener { failure ->
                     Log.d(

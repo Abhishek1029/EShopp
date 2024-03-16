@@ -1,5 +1,6 @@
 package com.futurecoder.eshopp.ui.composefiles
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -12,11 +13,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.utils.DashboardDestination
+import com.futurecoder.eshopp.utils.ProfileDestination
 import com.futurecoder.eshopp.utils.SearchDestination
 import com.futurecoder.eshopp.utils.SignupDestination
 import com.futurecoder.eshopp.utils.SplashDestination
 import com.futurecoder.eshopp.viewmodels.DashboardViewModel
 
+@ExperimentalMaterial3Api
 @Composable
 fun EShoppAppScreen(
     modifier: Modifier = Modifier
@@ -50,8 +53,12 @@ fun EShoppAppScreen(
                 }
             }
             composable(DashboardDestination.route) {
-                DashboardScreen(onProfileIconClicked = {
-                    showBottomSheet.value = it
+                DashboardScreen(onProfileIconClicked = { bottomSheet, isCurrentUser ->
+                    if (isCurrentUser) {
+                        navController.navigate(ProfileDestination.route)
+                    } else {
+                        showBottomSheet.value = bottomSheet
+                    }
                 }) {
                     navController.navigate(SearchDestination.route)
                 }
@@ -61,6 +68,15 @@ fun EShoppAppScreen(
             }
             composable(SignupDestination.route) {
                 SignUpComposable()
+            }
+            composable(ProfileDestination.route) {
+                ProfileComposable {
+                    navController.navigate(DashboardDestination.route) {
+                        popUpTo(DashboardDestination.route) {
+                            inclusive = false
+                        }
+                    }
+                }
             }
         }
     }

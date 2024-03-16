@@ -1,6 +1,7 @@
 package com.futurecoder.eshopp.utils
 
 import com.futurecoder.eshopp.utils.CLConstants.DASHBOARD
+import com.futurecoder.eshopp.utils.CLConstants.PROFILE
 import com.futurecoder.eshopp.utils.CLConstants.SEARCH
 import com.futurecoder.eshopp.utils.CLConstants.SIGN_UP
 import com.futurecoder.eshopp.utils.CLConstants.SPLASH
@@ -18,4 +19,8 @@ object SearchDestination{
 
 object SignupDestination{
     const val route = SIGN_UP
+}
+
+object ProfileDestination{
+    const val route = PROFILE
 }

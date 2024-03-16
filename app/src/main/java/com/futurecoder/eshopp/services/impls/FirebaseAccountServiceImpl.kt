@@ -1,14 +1,13 @@
 package com.futurecoder.eshopp.services.impls
 
-import android.util.Log
 import com.futurecoder.eshopp.data.SignupState
 import com.futurecoder.eshopp.services.FirebaseAccountService
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class FirebaseAccountServiceImpl @Inject constructor(
@@ -17,6 +16,8 @@ class FirebaseAccountServiceImpl @Inject constructor(
 ) : FirebaseAccountService {
     override val currentUserId: String
         get() = auth.currentUser?.uid.orEmpty()
+    override val currentUser: FirebaseUser?
+        get() = auth.currentUser
     override val hasUser: Boolean
         get() = auth.currentUser != null
 

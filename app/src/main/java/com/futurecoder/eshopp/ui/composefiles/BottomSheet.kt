@@ -30,6 +30,7 @@ import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomButton
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomOutlinedTextFieldWithLeadingIcon
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
+import com.futurecoder.eshopp.ui.composefiles.customwidgets.PasswordField
 import com.futurecoder.eshopp.viewmodels.LoginViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -109,7 +110,7 @@ fun BottomLayout(
                 )
             }, onTextFieldValueChange = onEmailChange
         )
-        CustomOutlinedTextFieldWithLeadingIcon(placeholderText = R.string.password,
+        PasswordField(placeholderText = R.string.password,
             modifier = Modifier
                 .padding(top = 10.dp)
                 .constrainAs(

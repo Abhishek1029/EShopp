@@ -20,14 +20,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomOutlinedTextFieldWithLeadingIcon
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
+import com.futurecoder.eshopp.viewmodels.DashboardViewModel
 
 @Composable
 fun DashboardScreen(
-    onProfileIconClicked: (Boolean) -> Unit,
+    onProfileIconClicked: (Boolean, Boolean) -> Unit,
+    dashboardViewModel: DashboardViewModel = hiltViewModel(),
     onSearchBarClick: () -> Unit
 ) {
     ConstraintLayout(
@@ -43,7 +46,7 @@ fun DashboardScreen(
             modifier = Modifier
                 .size(40.dp)
                 .clickable {
-                    onProfileIconClicked(true)
+                    onProfileIconClicked(true, dashboardViewModel.isCurrentUser())
                 }
                 .constrainAs(
                     profileImage
@@ -54,6 +57,7 @@ fun DashboardScreen(
         )
 
         CustomText(text = R.string.welcome,
+            dynamicString = dashboardViewModel.getCurrentUser()?.displayName ?: "",
             fontSize = 20.sp,
             textStyle = FontWeight.Bold,
             modifier = Modifier.constrainAs(
@@ -100,7 +104,7 @@ fun DashboardScreen(
 @Composable
 fun DashboardScreenPreview() {
     EShoppTheme {
-        DashboardScreen({
+        DashboardScreen({ _, _ ->
 
         }) {
 

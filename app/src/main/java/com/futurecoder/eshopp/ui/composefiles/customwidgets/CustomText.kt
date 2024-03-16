@@ -17,12 +17,35 @@ import com.futurecoder.eshopp.ui.composefiles.returnAnnotatedString
 fun CustomText(
     modifier: Modifier = Modifier,
     @StringRes text: Int,
+    dynamicString: String = "",
     fontSize: TextUnit = 12.sp,
     textStyle: FontWeight = FontWeight.Normal,
     textAlignment: TextAlign = TextAlign.Start
 ) {
+    val actualText =
+        if (dynamicString.isNotBlank()) "${stringResource(id = text)} $dynamicString" else stringResource(
+            id = text
+        )
     Text(
-        text = stringResource(id = text),
+        text = actualText,
+        modifier = modifier,
+        fontSize = fontSize,
+        fontWeight = textStyle,
+        textAlign = textAlignment
+    )
+}
+
+@Composable
+fun CustomText(
+    modifier: Modifier = Modifier,
+    text: String = "",
+    fontSize: TextUnit = 12.sp,
+    textStyle: FontWeight = FontWeight.Normal,
+    textAlignment: TextAlign = TextAlign.Start
+) {
+
+    Text(
+        text = text,
         modifier = modifier,
         fontSize = fontSize,
         fontWeight = textStyle,

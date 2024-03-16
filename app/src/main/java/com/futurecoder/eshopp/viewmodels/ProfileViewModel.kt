@@ -1,15 +1,16 @@
 package com.futurecoder.eshopp.viewmodels
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.futurecoder.eshopp.services.FirebaseAccountService
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DashboardViewModel @Inject constructor(
+class ProfileViewModel @Inject constructor(
     private val firebaseAccountService: FirebaseAccountService
-) : ViewModel() {
+) : EShoppViewModel() {
 
     fun isCurrentUser(): Boolean {
         return firebaseAccountService.hasUser
@@ -18,4 +19,13 @@ class DashboardViewModel @Inject constructor(
     fun getCurrentUser(): FirebaseUser? {
         return firebaseAccountService.currentUser
     }
+
+    fun logoutUser() {
+        viewModelScope.launch {
+            firebaseAccountService.signOut()
+        }
+    }
+    /*fun getCurrentUser(): Boolean {
+        return firebaseAccountService.currentUserId
+    }*/
 }
