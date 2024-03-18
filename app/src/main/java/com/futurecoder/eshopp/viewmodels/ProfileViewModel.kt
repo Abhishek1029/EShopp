@@ -1,5 +1,6 @@
 package com.futurecoder.eshopp.viewmodels
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,8 @@ import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+private const val TAG = "ProfileViewModel"
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
@@ -33,6 +36,26 @@ class ProfileViewModel @Inject constructor(
     val postalCode: String
         get() = addressState.value.postalCode
 
+    fun onAddressChange(address: String) {
+        addressState.value.address = address
+    }
+
+    fun onCityChange(city: String) {
+        addressState.value.city = city
+    }
+
+    fun onStateChange(state: String) {
+        addressState.value.state = state
+    }
+
+    fun onCountryChange(country: String) {
+        addressState.value.country = country
+    }
+
+    fun onPostalCodeChange(postalCode: String) {
+        addressState.value.postalCode = postalCode
+    }
+
     fun isCurrentUser(): Boolean {
         return firebaseAccountService.hasUser
     }
@@ -48,6 +71,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun addAddress() {
+        Log.d(TAG, "Add Address called")
         if (address.isBlank()) {
             return
         }
@@ -63,7 +87,25 @@ class ProfileViewModel @Inject constructor(
         if (postalCode.isBlank()) {
             return
         }
+        Log.d(TAG, "Add Address called Again")
         val address = Address(address, city, state, country, postalCode)
+        viewModelScope.launch {
+            kotlin.runCatching {
+                firebaseAccountService.addAddressInFireStore(
+                    FIRE_STORE_ADDRESSES_COLLECTION,
+                    getCurrentUser()?.email ?: "",
+                    address
+                )
+            }.onSuccess { it ->
+                it.addOnSuccessListener {
+                    Log.d(TAG, "Address Added in Firestore")
+                }.addOnFailureListener {
+                    Log.e(TAG, "Address Add failed with Exception:- ${it.localizedMessage}")
+                }
+            }.onFailure {
+
+            }
+        }
     }
     /*fun getCurrentUser(): Boolean {
         return firebaseAccountService.currentUserId

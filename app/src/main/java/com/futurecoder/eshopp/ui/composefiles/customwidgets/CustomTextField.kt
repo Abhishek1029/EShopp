@@ -33,13 +33,15 @@ fun CustomTextFieldWithLabel(
 fun CustomTextFieldWithPlaceholder(
     modifier: Modifier = Modifier,
     @StringRes placeholderText: Int,
-    colors: TextFieldColors = TextFieldDefaults.colors()
+    colors: TextFieldColors = TextFieldDefaults.colors(),
+    onTextChange:(String)->Unit
 ) {
     var queryString by remember {
         mutableStateOf("")
     }
     TextField(value = queryString, onValueChange = {
         queryString = it
+        onTextChange(queryString)
     },
         modifier = modifier, colors = colors, placeholder = {
             CustomText(text = placeholderText)

@@ -26,6 +26,21 @@ fun AddAddressScreen(
     profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
     AddAddress(
+        onAddressChange = {
+            profileViewModel.onAddressChange(it)
+        },
+        onCityChange = {
+            profileViewModel.onCityChange(it)
+        },
+        onCountryChange = {
+            profileViewModel.onCountryChange(it)
+        },
+        onStateChange = {
+            profileViewModel.onStateChange(it)
+        },
+        onPostalCodeChange = {
+            profileViewModel.onPostalCodeChange(it)
+        },
         onProceedClick = {
             profileViewModel.addAddress()
         }
@@ -34,6 +49,11 @@ fun AddAddressScreen(
 
 @Composable
 fun AddAddress(
+    onAddressChange: (String) -> Unit,
+    onCityChange: (String) -> Unit,
+    onCountryChange: (String) -> Unit,
+    onStateChange: (String) -> Unit,
+    onPostalCodeChange: (String) -> Unit,
     onProceedClick: () -> Unit
 ) {
     ConstraintLayout(
@@ -82,7 +102,7 @@ fun AddAddress(
                 focusedTextColor = Color.Black,
                 unfocusedContainerColor = Color.White,
                 unfocusedTextColor = Color.Black
-            )
+            ), onTextChange = onAddressChange
         )
         CustomText(
             text = AppString.city,
@@ -107,7 +127,7 @@ fun AddAddress(
                 focusedTextColor = Color.Black,
                 unfocusedContainerColor = Color.White,
                 unfocusedTextColor = Color.Black
-            )
+            ), onTextChange = onCityChange
         )
         CustomText(
             text = AppString.country,
@@ -132,7 +152,7 @@ fun AddAddress(
                 focusedTextColor = Color.Black,
                 unfocusedContainerColor = Color.White,
                 unfocusedTextColor = Color.Black
-            )
+            ), onTextChange = onCountryChange
         )
 
         CustomText(
@@ -158,7 +178,7 @@ fun AddAddress(
                 focusedTextColor = Color.Black,
                 unfocusedContainerColor = Color.White,
                 unfocusedTextColor = Color.Black
-            )
+            ), onTextChange = onStateChange
         )
 
         CustomText(
@@ -184,7 +204,7 @@ fun AddAddress(
                 focusedTextColor = Color.Black,
                 unfocusedContainerColor = Color.White,
                 unfocusedTextColor = Color.Black
-            )
+            ), onTextChange = onPostalCodeChange
         )
 
         CustomButton(

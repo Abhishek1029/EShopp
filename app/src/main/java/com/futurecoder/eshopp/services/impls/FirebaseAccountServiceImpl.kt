@@ -8,6 +8,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import javax.inject.Inject
@@ -45,9 +46,7 @@ class FirebaseAccountServiceImpl @Inject constructor(
         userEmail: String,
         address: Address
     ): Task<Void> {
-        return fireStore.collection(collectionName).document(userEmail).set(
-            address
-        )
+        return fireStore.collection(collectionName).document(userEmail).update("addresses", FieldValue.arrayUnion(address))
     }
 
     override suspend fun getAddress(collectionName: String,userEmail: String, address: Address): DocumentReference {
