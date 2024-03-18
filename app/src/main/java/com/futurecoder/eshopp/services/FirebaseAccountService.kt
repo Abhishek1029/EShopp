@@ -5,6 +5,7 @@ import com.futurecoder.eshopp.data.SignupState
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.Query
 
 interface FirebaseAccountService {
@@ -23,7 +24,11 @@ interface FirebaseAccountService {
         address: Address
     ): Task<Void>
 
-    suspend fun getAddress(collectionName: String, address: Address): Query
+    suspend fun getAddress(
+        collectionName: String,
+        userEmail: String,
+        address: Address
+    ): DocumentReference
 
     suspend fun queryEmail(collectionName: String, email: String): Query
     suspend fun signOut()

@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import javax.inject.Inject
@@ -49,9 +50,8 @@ class FirebaseAccountServiceImpl @Inject constructor(
         )
     }
 
-    override suspend fun getAddress(collectionName: String, address: Address): Query {
-        // TODO: replace null with firestore query
-        return null
+    override suspend fun getAddress(collectionName: String,userEmail: String, address: Address): DocumentReference {
+        return fireStore.collection(collectionName).document(userEmail)
     }
 
     override suspend fun queryEmail(
