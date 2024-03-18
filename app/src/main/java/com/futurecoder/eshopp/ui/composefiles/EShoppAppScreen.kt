@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.utils.AddAddressDestination
+import com.futurecoder.eshopp.utils.AddressDestination
 import com.futurecoder.eshopp.utils.DashboardDestination
 import com.futurecoder.eshopp.utils.ProfileDestination
 import com.futurecoder.eshopp.utils.SearchDestination
@@ -68,13 +69,24 @@ fun EShoppAppScreen(
                 SignUpComposable()
             }
             composable(ProfileDestination.route) {
-                ProfileComposable {
+                ProfileComposable(
+                    onAddressCardClick = {
+                        navController.navigate(AddressDestination.route)
+                    }
+                ) {
                     navController.navigate(DashboardDestination.route) {
                         popUpTo(DashboardDestination.route) {
                             inclusive = false
                         }
                     }
                 }
+            }
+            composable(AddressDestination.route) {
+                AddressScreen(
+                    onAddManuallyClick = {
+                        navController.navigate(AddAddressDestination.route)
+                    }
+                )
             }
             composable(AddAddressDestination.route) {
                 AddAddressScreen()

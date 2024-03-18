@@ -44,10 +44,12 @@ import com.futurecoder.eshopp.viewmodels.ProfileViewModel
 @Composable
 fun ProfileComposable(
     profileViewModel: ProfileViewModel = hiltViewModel(),
+    onAddressCardClick: () -> Unit,
     onUserLogout: () -> Unit
 ) {
     ProfileScreen(
-        profileViewModel
+        profileViewModel,
+        onAddressCardClick = onAddressCardClick
     ) {
         profileViewModel.logoutUser()
         onUserLogout()
@@ -58,6 +60,7 @@ fun ProfileComposable(
 @Composable
 fun ProfileScreen(
     profileViewModel: ProfileViewModel,
+    onAddressCardClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
 
@@ -118,6 +121,7 @@ fun ProfileScreen(
 
         ElevatedCard(
             onClick = {
+                onAddressCardClick()
             }, modifier = Modifier
                 .height(56.dp)
                 .padding(3.dp)
@@ -214,7 +218,11 @@ fun ProfileScreen(
 @Composable
 fun ProfileScreenPreview() {
     EShoppTheme {
-        ProfileComposable {
+        ProfileComposable(
+            onAddressCardClick = {
+
+            }
+        ) {
 
         }
     }

@@ -1,5 +1,6 @@
 package com.futurecoder.eshopp.services.impls
 
+import com.futurecoder.eshopp.data.Address
 import com.futurecoder.eshopp.data.SignupState
 import com.futurecoder.eshopp.services.FirebaseAccountService
 import com.google.android.gms.tasks.Task
@@ -38,11 +39,26 @@ class FirebaseAccountServiceImpl @Inject constructor(
         )
     }
 
+    override suspend fun addAddressInFireStore(
+        collectionName: String,
+        userEmail: String,
+        address: Address
+    ): Task<Void> {
+        return fireStore.collection(collectionName).document(userEmail).set(
+            address
+        )
+    }
+
+    override suspend fun getAddress(collectionName: String, address: Address): Query {
+        // TODO: replace null with firestore query
+        return null
+    }
+
     override suspend fun queryEmail(
         collectionName: String,
         email: String
     ): Query {
-       return fireStore.collection(collectionName).whereEqualTo("email", email)
+        return fireStore.collection(collectionName).whereEqualTo("email", email)
     }
 
     override suspend fun signOut() {

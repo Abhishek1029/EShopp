@@ -1,5 +1,6 @@
 package com.futurecoder.eshopp.utils
 
+import com.futurecoder.eshopp.utils.CLConstants.ADDRESS
 import com.futurecoder.eshopp.utils.CLConstants.ADD_ADDRESS
 import com.futurecoder.eshopp.utils.CLConstants.DASHBOARD
 import com.futurecoder.eshopp.utils.CLConstants.PROFILE
@@ -27,4 +28,8 @@ object ProfileDestination{
 }
 object AddAddressDestination{
     const val route = ADD_ADDRESS
+}
+
+object AddressDestination{
+    const val route = ADDRESS
 }
