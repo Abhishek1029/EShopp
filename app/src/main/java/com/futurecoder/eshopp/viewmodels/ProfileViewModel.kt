@@ -6,11 +6,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.futurecoder.eshopp.data.Address
 import com.futurecoder.eshopp.services.FirebaseAccountService
-import com.futurecoder.eshopp.utils.CLConstants
-import com.futurecoder.eshopp.utils.CLConstants.FIRE_STORE_ADDRESSES_COLLECTION
+import com.futurecoder.eshopp.services.RoomDatabaseService
+import com.futurecoder.eshopp.utils.ioDispatcher
 import com.futurecoder.eshopp.utils.isValidPostalCode
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,23 +22,24 @@ private const val TAG = "ProfileViewModel"
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val firebaseAccountService: FirebaseAccountService
+    private val firebaseAccountService: FirebaseAccountService,
+    private val databaseService: RoomDatabaseService
 ) : EShoppViewModel() {
 
-    val addressState: MutableState<Address> = mutableStateOf(Address())
+    private val addressState: MutableState<Address> = mutableStateOf(Address())
     val address: String
         get() = addressState.value.address
 
-    val city: String
+    private val city: String
         get() = addressState.value.city
 
-    val state: String
+    private val state: String
         get() = addressState.value.state
 
-    val country: String
+    private val country: String
         get() = addressState.value.country
 
-    val postalCode: String
+    private val postalCode: String
         get() = addressState.value.postalCode
 
     fun onAddressChange(address: String) {
@@ -90,16 +95,14 @@ class ProfileViewModel @Inject constructor(
         }
         Log.d(TAG, "Add Address called Again")
         val address = Address(address, city, state, country, postalCode)
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             kotlin.runCatching {
-
+                databaseService.insertUserAddress(address)
             }.onSuccess {
+                Log.d(TAG, "Address Successfully Added")
             }.onFailure {
-
+                Log.e(TAG, "Address Add Failed with Exception:- ${it.localizedMessage}")
             }
         }
     }
-    /*fun getCurrentUser(): Boolean {
-        return firebaseAccountService.currentUserId
-    }*/
 }

@@ -3,7 +3,10 @@
 package com.futurecoder.eshopp.ui.composefiles
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,22 +29,39 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.futurecoder.eshopp.R.string as AppString
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.futurecoder.eshopp.data.Address
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
+import com.futurecoder.eshopp.utils.generateActualAddress
+import com.futurecoder.eshopp.viewmodels.AddressViewModel
+import com.futurecoder.eshopp.R.string as AppString
 
 @Composable
 fun AddressScreen(
+    addressViewModel: AddressViewModel = hiltViewModel(),
     onAddManuallyClick: () -> Unit
 ) {
+    val addressList = addressViewModel.addressSF.collectAsStateWithLifecycle()
     Address(
+        addressList = addressList.value,
+        onEditClick = {
+            addressViewModel.editAddress(it)
+        },
+        onDeleteClick = {
+            addressViewModel.deleteAddress(it)
+        },
         onAddManuallyClick = onAddManuallyClick
     )
 }
 
 @Composable
 fun Address(
-    onAddManuallyClick: () -> Unit
+    addressList: List<Address> = emptyList(),
+    onEditClick: (Long) -> Unit,
+    onDeleteClick: (Long) -> Unit,
+    onAddManuallyClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -116,12 +138,55 @@ fun Address(
         Spacer(modifier = Modifier.height(20.dp))
 
         CustomText(
-            text = AppString.list_of_addresses,
-            modifier = Modifier.padding(
-                start = 15.dp
-            ),
-            fontSize = 18.sp, textStyle = FontWeight.Bold
+            text = AppString.saved_addresses,
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(Alignment.CenterVertically)
+                .background(Color.LightGray)
+                .padding(
+                    start = 15.dp,
+                    top = 15.dp,
+                    bottom = 15.dp
+                ),
+            fontSize = 16.sp
         )
+
+        LazyColumn(
+            contentPadding = PaddingValues(15.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(addressList) { address ->
+                AddressItem(
+                    address,
+                    onEditClick = onEditClick,
+                    onDeleteClick = onDeleteClick
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun AddressItem(
+    address: Address,
+    onEditClick: (Long) -> Unit,
+    onDeleteClick: (Long) -> Unit
+) {
+
+    Column {
+        CustomText(
+            text = address.generateActualAddress(),
+            fontSize = 16.sp,
+            textColor = Color.Black
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(15.dp)
+        ) {
+            CustomText(text = AppString.edit, textColor = Color.Magenta, fontSize = 18.sp)
+            CustomText(text = AppString.delete, textColor = Color.Magenta, fontSize = 18.sp)
+        }
     }
 }
 
@@ -129,7 +194,7 @@ fun Address(
 @Composable
 fun AddressScreenPreview() {
     EShoppTheme {
-        AddressScreen(){
+        AddressScreen {
 
         }
     }

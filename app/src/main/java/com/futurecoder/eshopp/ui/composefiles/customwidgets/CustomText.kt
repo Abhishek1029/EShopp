@@ -21,7 +21,8 @@ fun CustomText(
     dynamicString: String = "",
     fontSize: TextUnit = 12.sp,
     textStyle: FontWeight = FontWeight.Normal,
-    textAlignment: TextAlign = TextAlign.Start
+    textAlignment: TextAlign = TextAlign.Start,
+    textColor: Color = Color.Black
 ) {
     val actualText =
         if (dynamicString.isNotBlank()) "${stringResource(id = text)} $dynamicString" else stringResource(
@@ -32,7 +33,8 @@ fun CustomText(
         modifier = modifier,
         fontSize = fontSize,
         fontWeight = textStyle,
-        textAlign = textAlignment
+        textAlign = textAlignment,
+        color = textColor
     )
 }
 

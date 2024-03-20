@@ -91,6 +91,8 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
 
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+
 }
 kapt {
     correctErrorTypes = true

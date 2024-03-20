@@ -26,7 +26,7 @@
     <string name="address">Address</string>
     <string name="fetch_current_address">Fetch your current address</string>
     <string name="add_address_manually">Add your address manually</string>
-    <string name="list_of_addresses">List of addresses:-</string>
+    <string name="saved_addresses">Saved Addresses</string>
     <string name="add_shipping_address">Add Shipping Address</string>
     <string name="city">City</string>
     <string name="country">Country</string>
@@ -38,4 +38,6 @@
     <string name="state_ex">for eg:- Delhi</string>
     <string name="country_ex">for eg:- India</string>
     <string name="postal_ex">for eg:- 215690</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

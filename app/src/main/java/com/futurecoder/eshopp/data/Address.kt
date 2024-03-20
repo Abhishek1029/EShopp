@@ -19,5 +19,5 @@ data class Address(
 ) {
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    var id: Long = 1
+    var id: Long = 0
 }
