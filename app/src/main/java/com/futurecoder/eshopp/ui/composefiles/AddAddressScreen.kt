@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -199,12 +201,16 @@ fun AddAddress(
                 start.linkTo(guidelineFromCenter, 2.dp)
                 end.linkTo(endGuideline)
                 width = Dimension.fillToConstraints
-            }, colors = TextFieldDefaults.colors(
+            },
+            colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.White,
                 focusedTextColor = Color.Black,
                 unfocusedContainerColor = Color.White,
                 unfocusedTextColor = Color.Black
-            ), onTextChange = onPostalCodeChange
+            ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            maxLength = 6,
+            onTextChange = onPostalCodeChange
         )
 
         CustomButton(

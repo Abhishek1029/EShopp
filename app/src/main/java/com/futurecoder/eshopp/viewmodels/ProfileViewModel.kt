@@ -8,6 +8,7 @@ import com.futurecoder.eshopp.data.Address
 import com.futurecoder.eshopp.services.FirebaseAccountService
 import com.futurecoder.eshopp.utils.CLConstants
 import com.futurecoder.eshopp.utils.CLConstants.FIRE_STORE_ADDRESSES_COLLECTION
+import com.futurecoder.eshopp.utils.isValidPostalCode
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -84,24 +85,15 @@ class ProfileViewModel @Inject constructor(
         if (country.isBlank()) {
             return
         }
-        if (postalCode.isBlank()) {
+        if (!postalCode.isValidPostalCode()) {
             return
         }
         Log.d(TAG, "Add Address called Again")
         val address = Address(address, city, state, country, postalCode)
         viewModelScope.launch {
             kotlin.runCatching {
-                firebaseAccountService.addAddressInFireStore(
-                    FIRE_STORE_ADDRESSES_COLLECTION,
-                    getCurrentUser()?.email ?: "",
-                    address
-                )
-            }.onSuccess { it ->
-                it.addOnSuccessListener {
-                    Log.d(TAG, "Address Added in Firestore")
-                }.addOnFailureListener {
-                    Log.e(TAG, "Address Add failed with Exception:- ${it.localizedMessage}")
-                }
+
+            }.onSuccess {
             }.onFailure {
 
             }

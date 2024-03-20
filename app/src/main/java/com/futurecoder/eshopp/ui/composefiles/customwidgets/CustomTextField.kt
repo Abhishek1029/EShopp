@@ -1,6 +1,7 @@
 package com.futurecoder.eshopp.ui.composefiles.customwidgets
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
@@ -10,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 
@@ -34,18 +36,24 @@ fun CustomTextFieldWithPlaceholder(
     modifier: Modifier = Modifier,
     @StringRes placeholderText: Int,
     colors: TextFieldColors = TextFieldDefaults.colors(),
-    onTextChange:(String)->Unit
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    maxLength: Int = Int.MAX_VALUE,
+    onTextChange: (String) -> Unit
 ) {
     var queryString by remember {
         mutableStateOf("")
     }
-    TextField(value = queryString, onValueChange = {
-        queryString = it
-        onTextChange(queryString)
-    },
+    TextField(
+        value = queryString, onValueChange = {
+            if (it.length <= maxLength) {
+                queryString = it
+                onTextChange(queryString)
+            }
+        },
         modifier = modifier, colors = colors, placeholder = {
             CustomText(text = placeholderText)
-        })
+        }, keyboardOptions = keyboardOptions
+    )
 }
 
 @Composable
