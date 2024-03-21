@@ -22,6 +22,9 @@ class AddressViewModel @Inject constructor(
         getUserAddress()
     }
 
+    // TODO: needs to be implemented in better way
+    var addressIdToDelete:Long = -1
+
     private val addressMSF: MutableStateFlow<List<Address>> = MutableStateFlow(emptyList())
     val addressSF: StateFlow<List<Address>> = addressMSF.asStateFlow()
 
@@ -44,7 +47,9 @@ class AddressViewModel @Inject constructor(
     fun deleteAddress(addressId: Long) {
         viewModelScope.launch(ioDispatcher) {
             kotlin.runCatching {
+
                 databaseService.deleteAddress(addressSF.value.first {
+                    Log.d(TAG,"addressId1: ${it.id} addressId2:- $addressId")
                     it.id == addressId
                 })
             }.onSuccess {

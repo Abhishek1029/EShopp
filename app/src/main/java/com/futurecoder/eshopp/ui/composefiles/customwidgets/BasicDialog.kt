@@ -39,7 +39,7 @@ fun BasicDialog(
     negativeButtonTextColor: Color = Color.Black,
     onDialogDismiss: () -> Unit,
     onNegativeButtonClick: () -> Unit,
-    onPositiveButtonClick: (Long) -> Unit
+    onPositiveButtonClick: () -> Unit
 ) {
     Dialog(
         onDismissRequest = {
@@ -101,8 +101,7 @@ fun BasicDialog(
                 CustomText(
                     text = positiveButtonText,
                     modifier = Modifier.clickable {
-                        // here 0 is passed as param, it means that you do not have to ignore the parameter while implementing the actual functionality
-                        onPositiveButtonClick(0)
+                        onPositiveButtonClick()
                     },
                     fontSize = 16.sp,
                     textAlignment = TextAlign.Center,
