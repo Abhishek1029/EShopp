@@ -83,13 +83,21 @@ fun EShoppAppScreen(
             }
             composable(AddressDestination.route) {
                 AddressScreen(
+                    onEditClick = { id, actualAddress ->
+                    },
                     onAddManuallyClick = {
                         navController.navigate(AddAddressDestination.route)
                     }
                 )
             }
             composable(AddAddressDestination.route) {
-                AddAddressScreen()
+                AddAddressScreen {
+                    navController.navigate(AddressDestination.route) {
+                        popUpTo(AddressDestination.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             }
         }
     }

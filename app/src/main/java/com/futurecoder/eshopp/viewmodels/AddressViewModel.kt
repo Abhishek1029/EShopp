@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val TAG = "AddressViewModel"
+
 @HiltViewModel
 class AddressViewModel @Inject constructor(
     private val databaseService: RoomDatabaseService
@@ -36,11 +37,21 @@ class AddressViewModel @Inject constructor(
         }
     }
 
-    fun editAddress(addressId: Long){
+    fun editAddress(addressId: Long, actualAddress: String) {
 
     }
 
-    fun deleteAddress(addressId: Long){
-
+    fun deleteAddress(addressId: Long) {
+        viewModelScope.launch(ioDispatcher) {
+            kotlin.runCatching {
+                databaseService.deleteAddress(addressSF.value.first {
+                    it.id == addressId
+                })
+            }.onSuccess {
+                Log.d(TAG, "Address Successfully Deleted")
+            }.onFailure {
+                Log.e(TAG, "Address Deletion Failed with Exception:- ${it.localizedMessage}")
+            }
+        }
     }
 }

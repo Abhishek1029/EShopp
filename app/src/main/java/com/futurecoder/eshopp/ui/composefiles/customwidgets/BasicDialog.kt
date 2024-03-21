@@ -7,10 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
@@ -25,8 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.futurecoder.eshopp.R.string as AppString
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
+import com.futurecoder.eshopp.R.string as AppString
 
 @Composable
 fun BasicDialog(
@@ -41,7 +39,7 @@ fun BasicDialog(
     negativeButtonTextColor: Color = Color.Black,
     onDialogDismiss: () -> Unit,
     onNegativeButtonClick: () -> Unit,
-    onPositiveButtonClick: () -> Unit
+    onPositiveButtonClick: (Long) -> Unit
 ) {
     Dialog(
         onDismissRequest = {
@@ -103,7 +101,8 @@ fun BasicDialog(
                 CustomText(
                     text = positiveButtonText,
                     modifier = Modifier.clickable {
-                        onPositiveButtonClick()
+                        // here 0 is passed as param, it means that you do not have to ignore the parameter while implementing the actual functionality
+                        onPositiveButtonClick(0)
                     },
                     fontSize = 16.sp,
                     textAlignment = TextAlign.Center,

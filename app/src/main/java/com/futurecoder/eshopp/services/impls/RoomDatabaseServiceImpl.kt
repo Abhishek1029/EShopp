@@ -15,4 +15,8 @@ class RoomDatabaseServiceImpl @Inject constructor(
     override suspend fun fetchUserAddresses(): List<Address> {
         return addressDao.fetchUserAddresses()
     }
+
+    override suspend fun deleteAddress(address: Address) {
+        addressDao.deleteAddress(address)
+    }
 }

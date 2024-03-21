@@ -3,6 +3,7 @@
 package com.futurecoder.eshopp.ui.composefiles
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,10 +21,15 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.futurecoder.eshopp.data.Address
+import com.futurecoder.eshopp.ui.composefiles.customwidgets.BasicDialog
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
 import com.futurecoder.eshopp.utils.generateActualAddress
@@ -41,16 +48,32 @@ import com.futurecoder.eshopp.R.string as AppString
 @Composable
 fun AddressScreen(
     addressViewModel: AddressViewModel = hiltViewModel(),
+    onEditClick: (Long, String) -> Unit,
     onAddManuallyClick: () -> Unit
 ) {
+    var showDeleteDialog by remember {
+        mutableStateOf(false)
+    }
     val addressList = addressViewModel.addressSF.collectAsStateWithLifecycle()
+    if (showDeleteDialog) {
+        BasicDialog(
+            headingText = stringResource(id = AppString.delete_address),
+            subHeadingText = stringResource(id = AppString.do_you_really_want_to_delete),
+            onDialogDismiss = {
+                showDeleteDialog = false
+            },
+            onNegativeButtonClick = {
+                showDeleteDialog = false
+            }) {
+            addressViewModel.deleteAddress(it)
+            showDeleteDialog = false
+        }
+    }
     Address(
         addressList = addressList.value,
-        onEditClick = {
-            addressViewModel.editAddress(it)
-        },
+        onEditClick = onEditClick,
         onDeleteClick = {
-            addressViewModel.deleteAddress(it)
+            showDeleteDialog = true
         },
         onAddManuallyClick = onAddManuallyClick
     )
@@ -60,7 +83,7 @@ fun AddressScreen(
 @Composable
 fun Address(
     addressList: List<Address> = emptyList(),
-    onEditClick: (Long) -> Unit,
+    onEditClick: (Long, String) -> Unit,
     onDeleteClick: (Long) -> Unit,
     onAddManuallyClick: () -> Unit,
 ) {
@@ -170,7 +193,7 @@ fun Address(
 @Composable
 fun AddressItem(
     address: Address,
-    onEditClick: (Long) -> Unit,
+    onEditClick: (Long, String) -> Unit,
     onDeleteClick: (Long) -> Unit
 ) {
 
@@ -185,8 +208,12 @@ fun AddressItem(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
-            CustomText(text = AppString.edit, textColor = Color.Magenta, fontSize = 18.sp)
-            CustomText(text = AppString.delete, textColor = Color.Magenta, fontSize = 18.sp)
+            CustomText(text = AppString.edit, modifier = Modifier.clickable {
+                onEditClick(address.id, address.generateActualAddress())
+            }, textColor = Color.Magenta, fontSize = 18.sp)
+            CustomText(text = AppString.delete, modifier = Modifier.clickable {
+                onDeleteClick(address.id)
+            }, textColor = Color.Magenta, fontSize = 18.sp)
         }
     }
 }
@@ -195,7 +222,11 @@ fun AddressItem(
 @Composable
 fun AddressScreenPreview() {
     EShoppTheme {
-        AddressScreen {
+        AddressScreen(
+            onEditClick = { _, _ ->
+
+            }
+        ) {
 
         }
     }

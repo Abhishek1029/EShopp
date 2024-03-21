@@ -25,7 +25,8 @@ import com.futurecoder.eshopp.viewmodels.ProfileViewModel
 
 @Composable
 fun AddAddressScreen(
-    profileViewModel: ProfileViewModel = hiltViewModel()
+    profileViewModel: ProfileViewModel = hiltViewModel(),
+    onAddressAdded:()->Unit
 ) {
     AddAddress(
         onAddressChange = {
@@ -45,6 +46,7 @@ fun AddAddressScreen(
         },
         onProceedClick = {
             profileViewModel.addAddress()
+            onAddressAdded()
         }
     )
 }

@@ -40,4 +40,6 @@
     <string name="postal_ex">for eg:- 215690</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="delete_address">Delete Address</string>
+    <string name="do_you_really_want_to_delete">Do you really want to delete this address?</string>
 </resources>

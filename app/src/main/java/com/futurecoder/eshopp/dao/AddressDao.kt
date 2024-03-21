@@ -1,6 +1,7 @@
 package com.futurecoder.eshopp.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.futurecoder.eshopp.data.Address
@@ -12,4 +13,7 @@ interface AddressDao {
 
     @Query("SELECT * FROM address")
     fun fetchUserAddresses(): List<Address>
+
+    @Delete
+    fun deleteAddress(address: Address)
 }
