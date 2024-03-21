@@ -23,7 +23,7 @@ class AddressViewModel @Inject constructor(
     }
 
     // TODO: needs to be implemented in better way
-    var addressIdToDelete:Long = -1
+    var addressIdToDelete: Long = -1
 
     private val addressMSF: MutableStateFlow<List<Address>> = MutableStateFlow(emptyList())
     val addressSF: StateFlow<List<Address>> = addressMSF.asStateFlow()
@@ -49,11 +49,13 @@ class AddressViewModel @Inject constructor(
             kotlin.runCatching {
 
                 databaseService.deleteAddress(addressSF.value.first {
-                    Log.d(TAG,"addressId1: ${it.id} addressId2:- $addressId")
+                    Log.d(TAG, "addressId1: ${it.id} addressId2:- $addressId")
                     it.id == addressId
                 })
             }.onSuccess {
-                Log.d(TAG, "Address Successfully Deleted")
+                addressMSF.value = addressSF.value.filter {
+                    it.id != addressId
+                }
             }.onFailure {
                 Log.e(TAG, "Address Deletion Failed with Exception:- ${it.localizedMessage}")
             }
