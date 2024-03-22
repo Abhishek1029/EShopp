@@ -42,7 +42,7 @@ fun CustomTextFieldWithPlaceholder(
     onTextChange: (String) -> Unit
 ) {
     var queryString by remember {
-        mutableStateOf(receivedText)
+        mutableStateOf("")
     }
     TextField(
         value = queryString, onValueChange = {
