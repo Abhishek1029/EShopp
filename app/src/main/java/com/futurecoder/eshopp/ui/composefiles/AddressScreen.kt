@@ -48,7 +48,7 @@ import com.futurecoder.eshopp.R.string as AppString
 @Composable
 fun AddressScreen(
     addressViewModel: AddressViewModel = hiltViewModel(),
-    onEditClick: (Long, String) -> Unit,
+    onEditClick: (Long) -> Unit,
     onAddManuallyClick: () -> Unit
 ) {
     var showDeleteDialog by remember {
@@ -84,7 +84,7 @@ fun AddressScreen(
 @Composable
 fun Address(
     addressList: List<Address> = emptyList(),
-    onEditClick: (Long, String) -> Unit,
+    onEditClick: (Long) -> Unit,
     onDeleteClick: (Long) -> Unit,
     onAddManuallyClick: () -> Unit,
 ) {
@@ -194,7 +194,7 @@ fun Address(
 @Composable
 fun AddressItem(
     address: Address,
-    onEditClick: (Long, String) -> Unit,
+    onEditClick: (Long) -> Unit,
     onDeleteClick: (Long) -> Unit
 ) {
 
@@ -210,7 +210,7 @@ fun AddressItem(
             horizontalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             CustomText(text = AppString.edit, modifier = Modifier.clickable {
-                onEditClick(address.id, address.generateActualAddress())
+                onEditClick(address.id)
             }, textColor = Color.Magenta, fontSize = 18.sp)
             CustomText(text = AppString.delete, modifier = Modifier.clickable {
                 onDeleteClick(address.id)
@@ -224,9 +224,7 @@ fun AddressItem(
 fun AddressScreenPreview() {
     EShoppTheme {
         AddressScreen(
-            onEditClick = { _, _ ->
-
-            }
+            onEditClick = {}
         ) {
 
         }

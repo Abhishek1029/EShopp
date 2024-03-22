@@ -34,6 +34,7 @@ fun CustomTextFieldWithLabel(
 @Composable
 fun CustomTextFieldWithPlaceholder(
     modifier: Modifier = Modifier,
+    receivedText: String = "",
     @StringRes placeholderText: Int,
     colors: TextFieldColors = TextFieldDefaults.colors(),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -41,7 +42,7 @@ fun CustomTextFieldWithPlaceholder(
     onTextChange: (String) -> Unit
 ) {
     var queryString by remember {
-        mutableStateOf("")
+        mutableStateOf(receivedText)
     }
     TextField(
         value = queryString, onValueChange = {

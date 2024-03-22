@@ -1,5 +1,6 @@
 package com.futurecoder.eshopp.ui.composefiles
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,35 +18,47 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.futurecoder.eshopp.data.Address
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomButton
 import com.futurecoder.eshopp.R.string as AppString
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomTextFieldWithPlaceholder
+import com.futurecoder.eshopp.viewmodels.AddressViewModel
 import com.futurecoder.eshopp.viewmodels.ProfileViewModel
+
+private const val TAG = "AddAddressScreen"
 
 @Composable
 fun AddAddressScreen(
-    profileViewModel: ProfileViewModel = hiltViewModel(),
-    onAddressAdded:()->Unit
+    addressViewModel: AddressViewModel = hiltViewModel(),
+    addressId: Long? = null,
+    onAddressAdded: () -> Unit
 ) {
+    var currentAddress: Address? = null
+    if (addressId != null && addressId != -1L) {
+        currentAddress = addressViewModel.addressSF.value.firstOrNull {
+            it.id == addressId
+        }
+    }
     AddAddress(
+        currentAddress,
         onAddressChange = {
-            profileViewModel.onAddressChange(it)
+            addressViewModel.onAddressChange(it)
         },
         onCityChange = {
-            profileViewModel.onCityChange(it)
+            addressViewModel.onCityChange(it)
         },
         onCountryChange = {
-            profileViewModel.onCountryChange(it)
+            addressViewModel.onCountryChange(it)
         },
         onStateChange = {
-            profileViewModel.onStateChange(it)
+            addressViewModel.onStateChange(it)
         },
         onPostalCodeChange = {
-            profileViewModel.onPostalCodeChange(it)
+            addressViewModel.onPostalCodeChange(it)
         },
         onProceedClick = {
-            profileViewModel.addAddress()
+            addressViewModel.addAddress()
             onAddressAdded()
         }
     )
@@ -53,6 +66,7 @@ fun AddAddressScreen(
 
 @Composable
 fun AddAddress(
+    currentAddress: Address? = null,
     onAddressChange: (String) -> Unit,
     onCityChange: (String) -> Unit,
     onCountryChange: (String) -> Unit,
@@ -94,6 +108,7 @@ fun AddAddress(
             textStyle = FontWeight.Medium
         )
         CustomTextFieldWithPlaceholder(
+            receivedText = currentAddress?.address ?: "",
             placeholderText = AppString.address_ex,
             modifier = Modifier.constrainAs(addressTF) {
                 top.linkTo(addressText.bottom, 5.dp)

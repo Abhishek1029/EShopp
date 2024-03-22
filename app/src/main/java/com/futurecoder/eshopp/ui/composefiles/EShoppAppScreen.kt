@@ -6,9 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.utils.AddAddressDestination
 import com.futurecoder.eshopp.utils.AddressDestination
@@ -83,15 +85,31 @@ fun EShoppAppScreen(
             }
             composable(AddressDestination.route) {
                 AddressScreen(
-                    onEditClick = { id, actualAddress ->
+                    onEditClick = { addressId ->
+                        /**
+                         * here addressId is optional argument(we can pass it or not,
+                         * if we are not passing any argument then it will not throw any exception)
+                         * but for that when defining it in composable function we need to
+                         * set defaultValue for it or make it nullable as we have done in AddAddressScreen composable()
+                         */
+                        navController.navigate("${AddAddressDestination.route}?addressId=$addressId")
                     },
                     onAddManuallyClick = {
                         navController.navigate(AddAddressDestination.route)
                     }
                 )
             }
-            composable(AddAddressDestination.route) {
-                AddAddressScreen {
+            composable(
+                "${AddAddressDestination.route}?addressId=${AddAddressDestination.args}",
+                arguments = listOf(navArgument("addressId") {
+                    // default value is passed so that if we do not pass any argument during navigation then it will not throw any exception
+                    defaultValue = -1L
+                    type = NavType.LongType
+                })
+            ) { backStackEntry ->
+                AddAddressScreen(
+                    addressId = backStackEntry.arguments?.getLong("addressId")
+                ) {
                     navController.navigate(AddressDestination.route) {
                         popUpTo(AddressDestination.route) {
                             inclusive = true

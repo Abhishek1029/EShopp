@@ -28,6 +28,7 @@ object ProfileDestination{
 }
 object AddAddressDestination{
     const val route = ADD_ADDRESS
+    var args = "{addressId}"
 }
 
 object AddressDestination{
