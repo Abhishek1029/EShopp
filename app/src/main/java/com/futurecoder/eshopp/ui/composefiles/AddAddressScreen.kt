@@ -1,14 +1,11 @@
 package com.futurecoder.eshopp.ui.composefiles
 
-import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -20,26 +17,19 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.futurecoder.eshopp.data.Address
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomButton
-import com.futurecoder.eshopp.R.string as AppString
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomTextFieldWithPlaceholder
 import com.futurecoder.eshopp.viewmodels.AddressViewModel
-import com.futurecoder.eshopp.viewmodels.ProfileViewModel
+import com.futurecoder.eshopp.R.string as AppString
 
 private const val TAG = "AddAddressScreen"
 
 @Composable
 fun AddAddressScreen(
     addressViewModel: AddressViewModel = hiltViewModel(),
-    addressId: Long? = null,
     onAddressAdded: () -> Unit
 ) {
-    var currentAddress: Address? = null
-    if (addressId != null && addressId != -1L) {
-        currentAddress = addressViewModel.addressSF.value.firstOrNull {
-            it.id == addressId
-        }
-    }
+    val currentAddress by addressViewModel.addressState
     AddAddress(
         currentAddress,
         onAddressChange = {
@@ -136,6 +126,7 @@ fun AddAddress(
         )
         CustomTextFieldWithPlaceholder(
             placeholderText = AppString.city_ex,
+            receivedText = currentAddress?.city ?: "",
             modifier = Modifier.constrainAs(cityTF) {
                 top.linkTo(cityText.bottom, 5.dp)
                 start.linkTo(startGuideline)
@@ -161,6 +152,7 @@ fun AddAddress(
         )
         CustomTextFieldWithPlaceholder(
             placeholderText = AppString.country_ex,
+            receivedText = currentAddress?.country ?: "",
             modifier = Modifier.constrainAs(countryTF) {
                 top.linkTo(countryText.bottom, 5.dp)
                 start.linkTo(startGuideline)
@@ -187,6 +179,7 @@ fun AddAddress(
         )
         CustomTextFieldWithPlaceholder(
             placeholderText = AppString.state_ex,
+            receivedText = currentAddress?.state ?: "",
             modifier = Modifier.constrainAs(stateTF) {
                 top.linkTo(stateText.bottom, 5.dp)
                 start.linkTo(startGuideline)
@@ -213,6 +206,7 @@ fun AddAddress(
         )
         CustomTextFieldWithPlaceholder(
             placeholderText = AppString.postal_ex,
+            receivedText = currentAddress?.postalCode ?: "",
             modifier = Modifier.constrainAs(postalCodeTF) {
                 top.linkTo(postalCodeText.bottom, 5.dp)
                 start.linkTo(guidelineFromCenter, 2.dp)
@@ -237,7 +231,7 @@ fun AddAddress(
                 start.linkTo(startGuideline)
                 end.linkTo(endGuideline)
                 width = Dimension.fillToConstraints
-            }, btnTextFontSize = 16.sp
+            }, btnTextFontSize = 16.sp, btnTextColor = Color.White
         ) {
             onProceedClick()
         }

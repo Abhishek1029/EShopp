@@ -1,41 +1,58 @@
 package com.futurecoder.eshopp.viewmodels
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.futurecoder.eshopp.data.Address
-import com.futurecoder.eshopp.services.FirebaseAccountService
 import com.futurecoder.eshopp.services.RoomDatabaseService
 import com.futurecoder.eshopp.utils.ioDispatcher
 import com.futurecoder.eshopp.utils.isValidPostalCode
-import com.google.firebase.auth.FirebaseUser
+import com.futurecoder.eshopp.utils.mainDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 private const val TAG = "AddressViewModel"
 
 @HiltViewModel
 class AddressViewModel @Inject constructor(
-    private val firebaseAccountService: FirebaseAccountService,
+    // TODO: need to deep dive on savedStateHandle
+    private val savedStateHandle: SavedStateHandle,
     private val databaseService: RoomDatabaseService
 ) : EShoppViewModel() {
+
+    val addressState = mutableStateOf(Address())
+
     init {
         getUserAddress()
     }
 
-    // TODO: needs to be implemented in better way
-    var addressIdToDelete: Long = -1
+    init {
+        val addressId = savedStateHandle.get<Long>("addressId")
+        if (addressId != null && addressId != -1L) {
+            getAddressWithId(addressId)
+        }
+    }
+
+    private fun getAddressWithId(addressId: Long) {
+        viewModelScope.launch(ioDispatcher) {
+            // TODO: to replace this with kotlin.runCatching
+            val address = databaseService.getAddressWithId(addressId)
+            withContext(mainDispatcher) {
+                addressState.value = address
+            }
+        }
+    }
 
     private val addressMSF: MutableStateFlow<List<Address>> = MutableStateFlow(emptyList())
     val addressSF: StateFlow<List<Address>> = addressMSF.asStateFlow()
 
-    private val addressState: MutableState<Address> = mutableStateOf(Address())
     val address: String
         get() = addressState.value.address
 
@@ -52,23 +69,23 @@ class AddressViewModel @Inject constructor(
         get() = addressState.value.postalCode
 
     fun onAddressChange(address: String) {
-        addressState.value.address = address
+        addressState.value = addressState.value.copy(address = address)
     }
 
     fun onCityChange(city: String) {
-        addressState.value.city = city
+        addressState.value = addressState.value.copy(city = city)
     }
 
     fun onStateChange(state: String) {
-        addressState.value.state = state
+        addressState.value = addressState.value.copy(state = state)
     }
 
     fun onCountryChange(country: String) {
-        addressState.value.country = country
+        addressState.value = addressState.value.copy(country = country)
     }
 
     fun onPostalCodeChange(postalCode: String) {
-        addressState.value.postalCode = postalCode
+        addressState.value = addressState.value.copy(postalCode = postalCode)
     }
 
     fun addAddress() {
@@ -114,10 +131,11 @@ class AddressViewModel @Inject constructor(
     }
 
     fun editAddress(addressId: Long, actualAddress: String) {
-        
+
     }
 
-    fun deleteAddress(addressId: Long) {
+    fun deleteAddress() {
+        val addressId = savedStateHandle.get<Long>("addressId")
         viewModelScope.launch(ioDispatcher) {
             kotlin.runCatching {
 

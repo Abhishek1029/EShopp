@@ -107,9 +107,7 @@ fun EShoppAppScreen(
                     type = NavType.LongType
                 })
             ) { backStackEntry ->
-                AddAddressScreen(
-                    addressId = backStackEntry.arguments?.getLong("addressId")
-                ) {
+                AddAddressScreen() {
                     navController.navigate(AddressDestination.route) {
                         popUpTo(AddressDestination.route) {
                             inclusive = true

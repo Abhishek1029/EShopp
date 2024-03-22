@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -26,7 +25,6 @@ fun SplashScreen(
     @DrawableRes splashIcon: Int,
     navigateToDashboard: () -> Unit
 ) {
-
     LaunchedEffect(key1 = true) {
         delay(2000)
         navigateToDashboard()

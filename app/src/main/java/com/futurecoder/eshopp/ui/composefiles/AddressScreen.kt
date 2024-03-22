@@ -65,7 +65,7 @@ fun AddressScreen(
             onNegativeButtonClick = {
                 showDeleteDialog = false
             }) {
-            addressViewModel.deleteAddress(addressViewModel.addressIdToDelete)
+            addressViewModel.deleteAddress()
             showDeleteDialog = false
         }
     }
@@ -73,7 +73,6 @@ fun AddressScreen(
         addressList = addressList.value,
         onEditClick = onEditClick,
         onDeleteClick = {
-            addressViewModel.addressIdToDelete = it
             showDeleteDialog = true
         },
         onAddManuallyClick = onAddManuallyClick

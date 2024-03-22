@@ -11,9 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
-import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 
 @Composable
 fun CustomTextFieldWithLabel(
@@ -41,14 +39,10 @@ fun CustomTextFieldWithPlaceholder(
     maxLength: Int = Int.MAX_VALUE,
     onTextChange: (String) -> Unit
 ) {
-    var queryString by remember {
-        mutableStateOf("")
-    }
     TextField(
-        value = queryString, onValueChange = {
+        value = receivedText, onValueChange = {
             if (it.length <= maxLength) {
-                queryString = it
-                onTextChange(queryString)
+                onTextChange(it)
             }
         },
         modifier = modifier, colors = colors, placeholder = {
