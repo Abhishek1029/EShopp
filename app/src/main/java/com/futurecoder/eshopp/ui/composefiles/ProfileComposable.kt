@@ -37,7 +37,7 @@ import com.futurecoder.eshopp.ui.composefiles.customwidgets.BasicDialog
 import com.futurecoder.eshopp.R.string as AppString
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
-import com.futurecoder.eshopp.utils.CLConstants.APP_VERSION
+import com.futurecoder.eshopp.utils.EShoppConstants.APP_VERSION
 import com.futurecoder.eshopp.viewmodels.ProfileViewModel
 
 @ExperimentalMaterial3Api

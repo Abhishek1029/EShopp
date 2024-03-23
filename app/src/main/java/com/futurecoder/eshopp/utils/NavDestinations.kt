@@ -1,12 +1,12 @@
 package com.futurecoder.eshopp.utils
 
-import com.futurecoder.eshopp.utils.CLConstants.ADDRESS
-import com.futurecoder.eshopp.utils.CLConstants.ADD_ADDRESS
-import com.futurecoder.eshopp.utils.CLConstants.DASHBOARD
-import com.futurecoder.eshopp.utils.CLConstants.PROFILE
-import com.futurecoder.eshopp.utils.CLConstants.SEARCH
-import com.futurecoder.eshopp.utils.CLConstants.SIGN_UP
-import com.futurecoder.eshopp.utils.CLConstants.SPLASH
+import com.futurecoder.eshopp.utils.EShoppConstants.ADDRESS
+import com.futurecoder.eshopp.utils.EShoppConstants.ADD_ADDRESS
+import com.futurecoder.eshopp.utils.EShoppConstants.DASHBOARD
+import com.futurecoder.eshopp.utils.EShoppConstants.PROFILE
+import com.futurecoder.eshopp.utils.EShoppConstants.SEARCH
+import com.futurecoder.eshopp.utils.EShoppConstants.SIGN_UP
+import com.futurecoder.eshopp.utils.EShoppConstants.SPLASH
 
 object SplashDestination{
     const val route = SPLASH

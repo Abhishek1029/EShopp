@@ -2,7 +2,7 @@ package com.futurecoder.eshopp.utils
 
 import com.futurecoder.eshopp.BuildConfig
 
-object CLConstants {
+object EShoppConstants {
     const val DASHBOARD = "dashboard"
     const val SEARCH = "search"
     const val SPLASH = "splash"
@@ -13,6 +13,7 @@ object CLConstants {
     const val FIRE_STORE_USERS_COLLECTION = "users"
     const val FIRE_STORE_ADDRESSES_COLLECTION = "addresses"
     const val ESHOP_DATABASE_NAME = "eshop_db"
+    const val FAKE_STORE_API_BASE_URL = "https://fakestoreapi.com"
     const val POSTAL_CODE_LENGTH = 6
     const val APP_VERSION = BuildConfig.VERSION_NAME
     const val MIN_PASS_LENGTH = 6

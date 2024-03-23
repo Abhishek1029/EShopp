@@ -1,9 +1,9 @@
 package com.futurecoder.eshopp.utils
 
 import android.util.Patterns
-import com.futurecoder.eshopp.utils.CLConstants.MIN_PASS_LENGTH
-import com.futurecoder.eshopp.utils.CLConstants.PASS_PATTERN
-import com.futurecoder.eshopp.utils.CLConstants.POSTAL_CODE_LENGTH
+import com.futurecoder.eshopp.utils.EShoppConstants.MIN_PASS_LENGTH
+import com.futurecoder.eshopp.utils.EShoppConstants.PASS_PATTERN
+import com.futurecoder.eshopp.utils.EShoppConstants.POSTAL_CODE_LENGTH
 import java.util.regex.Pattern
 
 fun String.isValidEmail(): Boolean {

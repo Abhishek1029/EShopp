@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
 import com.futurecoder.eshopp.data.SignupState
 import com.futurecoder.eshopp.services.FirebaseAccountService
-import com.futurecoder.eshopp.utils.CLConstants.FIRE_STORE_USERS_COLLECTION
+import com.futurecoder.eshopp.utils.EShoppConstants.FIRE_STORE_USERS_COLLECTION
 import com.futurecoder.eshopp.utils.isValidEmail
 import com.futurecoder.eshopp.utils.isValidPassword
 import com.google.firebase.auth.UserProfileChangeRequest

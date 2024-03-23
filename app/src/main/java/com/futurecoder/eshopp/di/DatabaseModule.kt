@@ -6,8 +6,7 @@ import com.futurecoder.eshopp.dao.AddressDao
 import com.futurecoder.eshopp.database.EShopDatabase
 import com.futurecoder.eshopp.services.RoomDatabaseService
 import com.futurecoder.eshopp.services.impls.RoomDatabaseServiceImpl
-import com.futurecoder.eshopp.utils.CLConstants
-import com.futurecoder.eshopp.utils.CLConstants.ESHOP_DATABASE_NAME
+import com.futurecoder.eshopp.utils.EShoppConstants.ESHOP_DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

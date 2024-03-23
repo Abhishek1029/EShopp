@@ -1,6 +1,6 @@
 package com.futurecoder.eshopp.utils
 
-object CLHelper {
+object EShoppHelper {
     fun getListOfPlayers(): List<String> {
         return arrayListOf<String>(
             "Virendra Sehwag",
