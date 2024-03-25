@@ -42,4 +42,13 @@
     <string name="delete">Delete</string>
     <string name="delete_address">Delete Address</string>
     <string name="do_you_really_want_to_delete">Do you really want to delete this address?</string>
+    <string name="order">Order</string>
+    <string name="pay">Pay</string>
+    <string name="delivery">Delivery</string>
+    <string name="visit_online_shop">Visit Online shop to order product</string>
+    <string name="make_your_purchase">Make your purchase</string>
+    <string name="estimated_delivery">Estimated Delivery time</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="finish">Finish</string>
 </resources>

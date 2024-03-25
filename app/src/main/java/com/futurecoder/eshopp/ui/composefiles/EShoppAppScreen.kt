@@ -15,6 +15,7 @@ import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.utils.AddAddressDestination
 import com.futurecoder.eshopp.utils.AddressDestination
 import com.futurecoder.eshopp.utils.DashboardDestination
+import com.futurecoder.eshopp.utils.OnBoardingDestination
 import com.futurecoder.eshopp.utils.ProfileDestination
 import com.futurecoder.eshopp.utils.SearchDestination
 import com.futurecoder.eshopp.utils.SignupDestination
@@ -46,8 +47,17 @@ fun EShoppAppScreen(
         ) {
             composable(SplashDestination.route) {
                 SplashScreen(splashIcon = R.drawable.splash_logo) {
-                    navController.navigate(DashboardDestination.route) {
+                    navController.navigate(OnBoardingDestination.route) {
                         popUpTo(SplashDestination.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            }
+            composable(OnBoardingDestination.route) {
+                OnboardingScreen {
+                    navController.navigate(DashboardDestination.route) {
+                        popUpTo(OnBoardingDestination.route) {
                             inclusive = true
                         }
                     }

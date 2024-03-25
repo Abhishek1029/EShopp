@@ -23,11 +23,12 @@ import kotlinx.coroutines.delay
 @Composable
 fun SplashScreen(
     @DrawableRes splashIcon: Int,
-    navigateToDashboard: () -> Unit
+    navigateToNextScreen: () -> Unit
 ) {
     LaunchedEffect(key1 = true) {
         delay(2000)
-        navigateToDashboard()
+        //navigateToDashboard()
+        navigateToNextScreen()
     }
     Column(
         modifier = Modifier

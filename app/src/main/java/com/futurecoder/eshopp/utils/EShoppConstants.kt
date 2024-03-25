@@ -6,6 +6,7 @@ object EShoppConstants {
     const val DASHBOARD = "dashboard"
     const val SEARCH = "search"
     const val SPLASH = "splash"
+    const val ON_BOARDING = "onBoarding"
     const val SIGN_UP = "sign_up"
     const val PROFILE = "profile"
     const val ADD_ADDRESS = "add_address"
