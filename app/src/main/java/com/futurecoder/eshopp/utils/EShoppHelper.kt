@@ -40,4 +40,11 @@ object EShoppHelper {
             )
         )
     }
+
+    fun getSliderImages(): List<Int> {
+        return listOf(
+            AppDrawable.slider_image_1,
+            AppDrawable.slider_image_2
+        )
+    }
 }

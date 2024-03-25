@@ -1,10 +1,15 @@
 package com.futurecoder.eshopp.ui.composefiles
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -13,6 +18,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,19 +32,25 @@ import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomOutlinedTextFieldWithLeadingIcon
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
+import com.futurecoder.eshopp.utils.EShoppHelper.getSliderImages
 import com.futurecoder.eshopp.viewmodels.DashboardViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DashboardScreen(
     onProfileIconClicked: (Boolean, Boolean) -> Unit,
     dashboardViewModel: DashboardViewModel = hiltViewModel(),
     onSearchBarClick: () -> Unit
 ) {
+    val sliderImages = getSliderImages()
+    val pagerState = rememberPagerState {
+        sliderImages.size
+    }
     ConstraintLayout(
         modifier = Modifier.fillMaxSize()
     ) {
 
-        val (locationText, profileImage, searchBox) = createRefs()
+        val (locationText, profileImage, searchBox, banner, bannerIndicator) = createRefs()
         val startGuideline = createGuidelineFromStart(.01f)
         val endGuideline = createGuidelineFromEnd(.01f)
         Icon(
@@ -95,6 +108,25 @@ fun DashboardScreen(
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = stringResource(id = R.string.search)
+            )
+        }
+
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .height(200.dp)
+                .constrainAs(banner) {
+                    top.linkTo(searchBox.bottom)
+                    start.linkTo(startGuideline)
+                    end.linkTo(endGuideline)
+                    width = Dimension.fillToConstraints
+                }
+        ) { index ->
+            Image(
+                painter = painterResource(id = sliderImages[index]),
+                contentDescription = "Slider Images",
+                modifier = Modifier.height(200.dp),
+                contentScale = ContentScale.Inside
             )
         }
     }
