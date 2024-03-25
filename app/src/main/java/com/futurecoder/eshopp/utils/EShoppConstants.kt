@@ -16,6 +16,7 @@ object EShoppConstants {
     const val ESHOP_DATABASE_NAME = "eshop_db"
     const val FAKE_STORE_API_BASE_URL = "https://fakestoreapi.com"
     const val POSTAL_CODE_LENGTH = 6
+    const val BANNER_AUTO_SCROLL_DELAY_TIME = 3000L
     const val APP_VERSION = BuildConfig.VERSION_NAME
     const val MIN_PASS_LENGTH = 6
     const val PASS_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,}$"

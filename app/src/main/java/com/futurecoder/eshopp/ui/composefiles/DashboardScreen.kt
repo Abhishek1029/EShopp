@@ -4,7 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,6 +15,7 @@ import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -32,8 +32,11 @@ import com.futurecoder.eshopp.R
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomOutlinedTextFieldWithLeadingIcon
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
+import com.futurecoder.eshopp.utils.EShoppConstants.BANNER_AUTO_SCROLL_DELAY_TIME
 import com.futurecoder.eshopp.utils.EShoppHelper.getSliderImages
 import com.futurecoder.eshopp.viewmodels.DashboardViewModel
+import com.google.accompanist.pager.HorizontalPagerIndicator
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -113,10 +116,11 @@ fun DashboardScreen(
 
         HorizontalPager(
             state = pagerState,
+            pageSpacing = 10.dp,
             modifier = Modifier
-                .height(200.dp)
+                .height(175.dp)
                 .constrainAs(banner) {
-                    top.linkTo(searchBox.bottom)
+                    top.linkTo(searchBox.bottom, 10.dp)
                     start.linkTo(startGuideline)
                     end.linkTo(endGuideline)
                     width = Dimension.fillToConstraints
@@ -126,8 +130,22 @@ fun DashboardScreen(
                 painter = painterResource(id = sliderImages[index]),
                 contentDescription = "Slider Images",
                 modifier = Modifier.height(200.dp),
-                contentScale = ContentScale.Inside
+                contentScale = ContentScale.FillBounds
             )
+        }
+
+        HorizontalPagerIndicator(pagerState = pagerState, pageCount = sliderImages.size,
+            modifier = Modifier.constrainAs(bannerIndicator) {
+                top.linkTo(banner.bottom, 3.dp)
+                start.linkTo(startGuideline)
+                end.linkTo(endGuideline)
+            })
+        LaunchedEffect(key1 = pagerState.currentPage) {
+            delay(BANNER_AUTO_SCROLL_DELAY_TIME)
+            if (pagerState.currentPage == sliderImages.size - 1)
+                pagerState.scrollToPage(0)
+            else
+                pagerState.scrollToPage(pagerState.currentPage + 1)
         }
     }
 }
