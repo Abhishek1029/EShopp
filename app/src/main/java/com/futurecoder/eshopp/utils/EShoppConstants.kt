@@ -15,6 +15,7 @@ object EShoppConstants {
     const val FIRE_STORE_ADDRESSES_COLLECTION = "addresses"
     const val ESHOP_DATABASE_NAME = "eshop_db"
     const val FAKE_STORE_API_BASE_URL = "https://fakestoreapi.com"
+    const val PRODUCT_COLS_PER_ROW = 2
     const val POSTAL_CODE_LENGTH = 6
     const val BANNER_AUTO_SCROLL_DELAY_TIME = 3000L
     const val APP_VERSION = BuildConfig.VERSION_NAME

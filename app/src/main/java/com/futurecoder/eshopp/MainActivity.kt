@@ -8,27 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.futurecoder.eshopp.ui.composefiles.DashboardScreen
-import com.futurecoder.eshopp.ui.composefiles.DisplayBottomSheet
 import com.futurecoder.eshopp.ui.composefiles.EShoppAppScreen
-import com.futurecoder.eshopp.ui.composefiles.SearchScreen
-import com.futurecoder.eshopp.ui.composefiles.SplashScreen
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
-import com.futurecoder.eshopp.viewmodels.DashboardViewModel
-import com.futurecoder.eshopp.utils.DashboardDestination
-import com.futurecoder.eshopp.utils.SearchDestination
-import com.futurecoder.eshopp.utils.SplashDestination
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalMaterial3Api

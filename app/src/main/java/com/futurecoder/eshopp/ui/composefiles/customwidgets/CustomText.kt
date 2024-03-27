@@ -5,14 +5,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
-import com.futurecoder.eshopp.ui.composefiles.returnAnnotatedString
 
 @Composable
 fun CustomText(
@@ -45,7 +44,9 @@ fun CustomText(
     textColor: Color = Color.Black,
     fontSize: TextUnit = 12.sp,
     textStyle: FontWeight = FontWeight.Normal,
-    textAlignment: TextAlign = TextAlign.Start
+    textAlignment: TextAlign = TextAlign.Start,
+    maxLines: Int = Int.MAX_VALUE,
+    textOverflow: TextOverflow = TextOverflow.Ellipsis
 ) {
 
     Text(
@@ -54,7 +55,9 @@ fun CustomText(
         fontSize = fontSize,
         fontWeight = textStyle,
         textAlign = textAlignment,
-        color = textColor
+        color = textColor,
+        maxLines = maxLines,
+        overflow = textOverflow
     )
 }
 

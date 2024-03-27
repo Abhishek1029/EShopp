@@ -1,5 +1,6 @@
 package com.futurecoder.eshopp.di
 
+import com.futurecoder.eshopp.network.ApiInterface
 import com.futurecoder.eshopp.utils.EShoppConstants
 import dagger.Module
 import dagger.Provides
@@ -30,4 +31,9 @@ object NetworkModule {
     @Provides
     @Singleton
     fun providesGsonConvertorFactory(): GsonConverterFactory = GsonConverterFactory.create()
+
+    @Provides
+    @Singleton
+    fun providesApiInterface(retrofit: Retrofit): ApiInterface =
+        retrofit.create(ApiInterface::class.java)
 }
