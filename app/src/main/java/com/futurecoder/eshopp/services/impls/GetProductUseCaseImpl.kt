@@ -12,4 +12,8 @@ class GetProductUseCaseImpl @Inject constructor(
     override suspend fun getAllProducts(): Response<List<Product>> {
         return apiInterface.getAllProducts()
     }
+
+    override suspend fun getProductById(productId: Long): Response<Product> {
+        return apiInterface.getProductById(productId)
+    }
 }

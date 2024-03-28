@@ -64,6 +64,7 @@ import com.futurecoder.eshopp.ui.theme.EShoppTheme
 import com.futurecoder.eshopp.utils.EShoppConstants.BANNER_AUTO_SCROLL_DELAY_TIME
 import com.futurecoder.eshopp.utils.EShoppConstants.PRODUCT_COLS_PER_ROW
 import com.futurecoder.eshopp.utils.EShoppHelper.getSliderImages
+import com.futurecoder.eshopp.utils.ProductDetailDestination
 import com.futurecoder.eshopp.viewmodels.DashboardViewModel
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import kotlinx.coroutines.delay
@@ -73,6 +74,7 @@ import kotlinx.coroutines.delay
 fun DashboardScreen(
     onProfileIconClicked: (Boolean, Boolean) -> Unit,
     dashboardViewModel: DashboardViewModel = hiltViewModel(),
+    openDetailScreen: (String, Int) -> Unit,
     onSearchBarClick: () -> Unit
 ) {
     val sliderImages = getSliderImages()
@@ -188,7 +190,7 @@ fun DashboardScreen(
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             items(productList) { product ->
-                ProductItem(product)
+                ProductItem(product, openDetailScreen)
             }
         }
 
@@ -205,10 +207,15 @@ fun DashboardScreen(
 @Composable
 fun ProductItem(
     product: Product,
+    openDetailScreen: (String, Int) -> Unit
 ) {
     //val bgColor = if (index % 2 == 0) Color.Magenta else Color.Cyan
     ElevatedCard(
-        onClick = { },
+        onClick = {
+            openDetailScreen(
+                ProductDetailDestination.route, product.id ?: 0
+            )
+        },
         modifier = Modifier
             .height(250.dp)
             .background(Color.White),
@@ -265,10 +272,11 @@ fun ProductItem(
                                 .width(1.dp)
                                 .fillMaxHeight(.6f),
                             thickness = 1.dp,
-                            color = Color.White)
+                            color = Color.White
+                        )
 
                         CustomText(
-                            text =  product.rating?.count?.toString().orEmpty(),
+                            text = product.rating?.count?.toString().orEmpty(),
                             textColor = Color.White,
                             fontSize = 11.sp,
                             textStyle = FontWeight.Normal,
@@ -312,7 +320,9 @@ fun ProductItem(
 @Composable
 fun DashboardScreenPreview() {
     EShoppTheme {
-        DashboardScreen({ _, _ ->
+        DashboardScreen(onProfileIconClicked = { _, _ ->
+
+        }, openDetailScreen = { _, _ ->
 
         }) {
 

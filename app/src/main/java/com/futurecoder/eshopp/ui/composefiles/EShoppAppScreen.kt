@@ -16,6 +16,7 @@ import com.futurecoder.eshopp.utils.AddAddressDestination
 import com.futurecoder.eshopp.utils.AddressDestination
 import com.futurecoder.eshopp.utils.DashboardDestination
 import com.futurecoder.eshopp.utils.OnBoardingDestination
+import com.futurecoder.eshopp.utils.ProductDetailDestination
 import com.futurecoder.eshopp.utils.ProfileDestination
 import com.futurecoder.eshopp.utils.SearchDestination
 import com.futurecoder.eshopp.utils.SignupDestination
@@ -70,6 +71,8 @@ fun EShoppAppScreen(
                     } else {
                         showBottomSheet.value = bottomSheet
                     }
+                }, openDetailScreen = { destinationRoute, productId ->
+                    navController.navigate("$destinationRoute?productId=$productId")
                 }) {
                     navController.navigate(SearchDestination.route)
                 }
@@ -124,6 +127,15 @@ fun EShoppAppScreen(
                         }
                     }
                 }
+            }
+            composable(
+                "${ProductDetailDestination.route}?productId=${ProductDetailDestination.args}",
+                arguments = listOf(navArgument("productId") {
+                    defaultValue = -1L
+                    type = NavType.LongType
+                })
+            ) {
+                ProductDetailScreen()
             }
         }
     }
