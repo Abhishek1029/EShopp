@@ -53,4 +53,6 @@
     <string name="finish">Finish</string>
     <string name="Rs">\u20B9</string>
     <string name="view_similar">View Similar</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="add_to_cart">Add To Cart</string>
 </resources>
