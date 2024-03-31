@@ -12,13 +12,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavBackStackEntry
 import com.futurecoder.eshopp.data.BottomNavigationItem
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
+import com.futurecoder.eshopp.utils.DashboardDestination
 
 @Composable
 fun EShoppNavigationBar(
     bottomNavList: List<BottomNavigationItem>,
     navBackStackEntry: NavBackStackEntry?,
     navBarState: MutableState<Boolean>,
-    openScreen: (String) -> Unit
+    openScreen: (String,String) -> Unit
 ) {
     val currentRoute = navBackStackEntry?.destination?.route
     AnimatedVisibility(
@@ -30,7 +31,7 @@ fun EShoppNavigationBar(
             bottomNavList.forEach { bottomNavItem ->
                 NavigationBarItem(
                     onClick = {
-                        openScreen(bottomNavItem.route)
+                        openScreen(bottomNavItem.route, DashboardDestination.ROUTE)
                     }, label = {
                         CustomText(text = bottomNavItem.title)
                     },

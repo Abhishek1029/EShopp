@@ -4,7 +4,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomButton
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.ui.theme.EShoppTheme
+import com.futurecoder.eshopp.utils.DashboardDestination
 import com.futurecoder.eshopp.R.drawable as AppDrawable
 import com.futurecoder.eshopp.R.string as AppString
 
@@ -33,7 +33,8 @@ fun EmptyDataScreen(
     @StringRes emptyDataTitle: Int,
     @StringRes emptyDataSubtitle: Int,
     @StringRes buttonText: Int,
-    @DrawableRes emptyDataDrawable: Int
+    @DrawableRes emptyDataDrawable: Int,
+    navigateToDashboard:(String)->Unit
 ) {
     Column(
         modifier = Modifier
@@ -68,7 +69,7 @@ fun EmptyDataScreen(
         Spacer(modifier = Modifier.height(20.dp))
         CustomButton(buttonText = buttonText,
             btnTextColor = Color.White) {
-
+            navigateToDashboard(DashboardDestination.ROUTE)
         }
     }
 }
@@ -82,6 +83,8 @@ private fun EmptyDataScreenPreview() {
             AppString.explore_more_and_shortlist_item,
             AppString.start_shopping,
             AppDrawable.no_data_wishlist
-        )
+        ){
+
+        }
     }
 }

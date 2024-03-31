@@ -5,13 +5,16 @@ import com.futurecoder.eshopp.R.string as AppString
 import com.futurecoder.eshopp.R.drawable as AppDrawable
 
 @Composable
-fun WishlistScreen() {
+fun WishlistScreen(
+    navigateToDashboard: (String) -> Unit
+) {
     //Wishlist()
     EmptyDataScreen(
         AppString.empty_wishlist,
         AppString.explore_more_and_shortlist_item,
         AppString.start_shopping,
-        AppDrawable.no_data_wishlist
+        AppDrawable.no_data_wishlist,
+        navigateToDashboard = navigateToDashboard
     )
 }
 

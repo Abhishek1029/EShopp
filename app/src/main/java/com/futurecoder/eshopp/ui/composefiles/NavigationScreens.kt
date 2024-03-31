@@ -141,11 +141,15 @@ fun NavigationScreens(
             ) {
                 ProductDetailScreen()
             }
-            composable(WishlistDestination.ROUTE){
-                WishlistScreen()
+            composable(WishlistDestination.ROUTE) {
+                WishlistScreen {
+                    navController.navigate(it)
+                }
             }
-            composable(CartDestination.ROUTE){
-                CartScreen()
+            composable(CartDestination.ROUTE) {
+                CartScreen {
+                    navController.navigate(it)
+                }
             }
         }
     }

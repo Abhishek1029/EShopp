@@ -8,6 +8,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.futurecoder.eshopp.utils.EShoppConstants.CART
@@ -38,9 +39,13 @@ fun EShoppAppScreen(
                 bottomNavigationList,
                 navBackStackEntry,
                 navBarState
-            ) { destination ->
+            ) { destination, bottomNavStartDestination ->
                 navController.navigate(destination){
+                    popUpTo(bottomNavStartDestination) {
+                        saveState = true
+                    }
                     launchSingleTop = true
+                    restoreState = true
                 }
             }
         }
