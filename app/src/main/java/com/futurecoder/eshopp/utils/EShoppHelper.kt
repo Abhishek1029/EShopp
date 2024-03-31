@@ -1,6 +1,17 @@
 package com.futurecoder.eshopp.utils
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.ShoppingCart
+import com.futurecoder.eshopp.data.BottomNavigationItem
 import com.futurecoder.eshopp.data.OnBoardingData
+import com.futurecoder.eshopp.utils.EShoppConstants.CART
+import com.futurecoder.eshopp.utils.EShoppConstants.DASHBOARD
+import com.futurecoder.eshopp.utils.EShoppConstants.WISHLIST
 import com.futurecoder.eshopp.R.string as AppString
 import com.futurecoder.eshopp.R.drawable as AppDrawable
 
@@ -45,6 +56,29 @@ object EShoppHelper {
         return listOf(
             AppDrawable.slider_image_1,
             AppDrawable.slider_image_2
+        )
+    }
+
+    fun getNavBarItems(): List<BottomNavigationItem> {
+        return listOf(
+            BottomNavigationItem(
+                AppString.home,
+                DASHBOARD,
+                Icons.Filled.Home,
+                Icons.Outlined.Home
+            ),
+            BottomNavigationItem(
+                AppString.wishlist,
+                WISHLIST,
+                Icons.Filled.Favorite,
+                Icons.Outlined.FavoriteBorder
+            ),
+            BottomNavigationItem(
+                AppString.cart,
+                CART,
+                Icons.Filled.ShoppingCart,
+                Icons.Outlined.ShoppingCart
+            )
         )
     }
 }

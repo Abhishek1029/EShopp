@@ -12,6 +12,8 @@ object EShoppConstants {
     const val PROFILE = "profile"
     const val ADD_ADDRESS = "add_address"
     const val ADDRESS = "address"
+    const val WISHLIST = "wishlist"
+    const val CART = "cart"
     const val FIRE_STORE_USERS_COLLECTION = "users"
     const val FIRE_STORE_ADDRESSES_COLLECTION = "addresses"
     const val ESHOP_DATABASE_NAME = "eshop_db"

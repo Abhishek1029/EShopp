@@ -34,10 +34,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.futurecoder.eshopp.data.Product
-import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomButton
 import com.futurecoder.eshopp.ui.composefiles.customwidgets.CustomText
 import com.futurecoder.eshopp.viewmodels.ProductDetailViewModel
-import com.google.type.ColorOrBuilder
 import com.futurecoder.eshopp.R.string as AppString
 
 @Composable

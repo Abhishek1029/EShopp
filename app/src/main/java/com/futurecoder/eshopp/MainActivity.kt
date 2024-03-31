@@ -26,12 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Scaffold(
-                    ) { paddingValues ->
-                        EShoppAppScreen(
-                            modifier = Modifier.padding(paddingValues)
-                        )
-                    }
+                    EShoppAppScreen()
                 }
             }
         }
