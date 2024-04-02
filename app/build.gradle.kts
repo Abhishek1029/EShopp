@@ -98,6 +98,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.10.0")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.30.1")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    implementation("androidx.compose.material:material-icons-extended-android:1.6.4")
 
 }
 kapt {

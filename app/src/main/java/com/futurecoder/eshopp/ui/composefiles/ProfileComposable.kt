@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.ShoppingCartCheckout
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -89,7 +90,7 @@ fun ProfileScreen(
             .fillMaxSize()
             .background(Color.White)
     ) {
-        val (profileIcon, nameText, emailText, addressCard, logoutCard, appVersionText) = createRefs()
+        val (profileIcon, nameText, emailText, addressCard, ordersCard, logoutCard, appVersionText) = createRefs()
         Image(
             painter = painterResource(id = R.drawable.profile_icon),
             contentDescription = "Profile Icon",
@@ -152,6 +153,45 @@ fun ProfileScreen(
                 Spacer(modifier = Modifier.size(15.dp))
                 CustomText(
                     text = AppString.address,
+                    fontSize = 18.sp,
+                    textStyle = FontWeight.Bold
+                )
+            }
+        }
+
+        ElevatedCard(
+            onClick = {
+                onAddressCardClick()
+            }, modifier = Modifier
+                .height(56.dp)
+                .padding(3.dp)
+                .constrainAs(ordersCard) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(addressCard.bottom, 5.dp)
+                    width = Dimension.fillToConstraints
+                },
+            colors = CardDefaults.elevatedCardColors(
+                containerColor = Color.White,
+                contentColor = Color.Black
+            ), shape = RectangleShape, elevation = CardDefaults.elevatedCardElevation(
+                defaultElevation = 8.dp,
+                pressedElevation = 10.dp
+            )
+        ) {
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Spacer(modifier = Modifier.size(10.dp))
+                Icon(
+                    imageVector = Icons.Default.ShoppingCartCheckout,
+                    contentDescription = "Your Orders",
+                    tint = Color.Black
+                )
+                Spacer(modifier = Modifier.size(15.dp))
+                CustomText(
+                    text = AppString.your_orders,
                     fontSize = 18.sp,
                     textStyle = FontWeight.Bold
                 )
