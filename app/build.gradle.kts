@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.futurecoder.eshopp.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -55,6 +55,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
     val navVersion = "2.7.7"
     val hiltVersion = "2.51"
     val roomVersion = "2.6.1"
@@ -99,6 +100,21 @@ dependencies {
     implementation("com.google.accompanist:accompanist-pager-indicators:0.30.1")
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
     implementation("androidx.compose.material:material-icons-extended-android:1.6.4")
+
+    androidTestImplementation("com.google.truth:truth:1.4.2")
+    testImplementation ("com.google.truth:truth:1.4.2")
+
+    // For Robolectric tests.
+    testImplementation("com.google.dagger:hilt-android-testing:2.44")
+    // ...with Kotlin.
+    kaptTest("com.google.dagger:hilt-android-compiler:2.44")
+    // ...with Java.
+    testAnnotationProcessor("com.google.dagger:hilt-android-compiler:2.44")
+
+    // For instrumented tests.
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
+    // ...with Kotlin.
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
 
 }
 kapt {

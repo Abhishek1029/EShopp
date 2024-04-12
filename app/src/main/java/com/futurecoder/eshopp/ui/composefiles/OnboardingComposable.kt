@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -91,6 +92,7 @@ fun Onboarding(
             CustomText(
                 text = AppString.previous,
                 modifier = Modifier
+                    .width(100.dp)
                     .padding(start = 8.dp)
                     .clickable {
                         coroutineScope.launch {
@@ -106,6 +108,7 @@ fun Onboarding(
             CustomText(
                 text = if (pagerState.currentPage == onBoardingList.size - 1) AppString.finish else AppString.next,
                 modifier = Modifier
+                    .width(100.dp)
                     .padding(end = 8.dp)
                     .clickable {
                         coroutineScope.launch {
@@ -117,7 +120,8 @@ fun Onboarding(
                         }
                     },
                 fontSize = 18.sp,
-                textColor = if (pagerState.currentPage == onBoardingList.size - 1) Color.Red else Color.Black
+                textColor = if (pagerState.currentPage == onBoardingList.size - 1) Color.Red else Color.Black,
+                textAlignment = TextAlign.End
             )
         }
     }
